@@ -2,7 +2,7 @@
 set -euo pipefail
 pushd $(dirname "$0")/..
 
-export WORLD_ADDRESS="0x7d1f066a910bd86f532fa9ca66766722c20d47462fb99fb2fb0e1030262f9c5";
+export WORLD_ADDRESS="0x84486b8e9ffe38978b33c9d7685d9d2d487d0e9f096a1d2669edefc8506c35";
 
 # enable system -> component authorizations
 COMPONENTS=("Position" "Moves" )
