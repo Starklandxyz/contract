@@ -4,6 +4,8 @@ use starknet::ContractAddress;
 struct Base {
     #[key]
     id: ContractAddress,
+    #[key]
+    map_id:u64,
     x: u64,
     y: u64,
 }
