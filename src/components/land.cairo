@@ -7,12 +7,11 @@ struct Land {
     x: u64,
     #[key]
     y: u64,
+    #[key]
+    map_id:u64,
     owner: ContractAddress,
     building: u64, // 1==基地Base 4*4,2==农田Farmland,3==铁矿矿场IronMine,4==金矿矿场GoldMine,5==营地Camp
     level: u64,
-    cost_gold: u64, //建筑总gold成本
-    cost_food: u64, //建筑总food成本
-    cost_iron: u64, //建筑总iron成本
 }
 
 #[generate_trait]
