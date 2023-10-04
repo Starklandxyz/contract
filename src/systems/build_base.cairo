@@ -46,7 +46,7 @@ mod build_base {
         }
         let base = get!(ctx.world, (ctx.origin, map_id), Base);
         //already have base in this map
-        if (base.map_id != 0) {
+        if (base.x != 0 || base.y != 0) {
             return false;
         }
         //exceed map size

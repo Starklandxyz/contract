@@ -18,8 +18,9 @@ export WORLD_ADDRESS="0x84486b8e9ffe38978b33c9d7685d9d2d487d0e9f096a1d2669edefc8
 sozo auth writer Player spawn --world $WORLD_ADDRESS
 sozo auth writer ETH spawn --world $WORLD_ADDRESS
 sozo auth writer Base build_base --world $WORLD_ADDRESS
+sozo auth writer Land build_base --world $WORLD_ADDRESS
 sozo auth writer GlobalConfig init --world $WORLD_ADDRESS
 
-sozo execute init
+sozo execute init --world $WORLD_ADDRESS
 
 echo "Default authorizations have been successfully set."
