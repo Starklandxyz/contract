@@ -53,10 +53,10 @@ mod build_base {
         // if (x + 1 > config.MAX_MAP_X || y + 1 > config.MAX_MAP_Y || x == 0 || y == 0) {
         //     return false;
         // }
-        let p: bool = check_single_land_buildable(ctx, x, y, map_id);
-        let p = p | check_single_land_buildable(ctx, x + 1, y, map_id);
-        let p = p | check_single_land_buildable(ctx, x, y + 1, map_id);
-        let p = p | check_single_land_buildable(ctx, x + 1, y + 1, map_id);
+        let p: bool = check_single_land_buildable(ctx, map_id, x, y);
+        let p = p | check_single_land_buildable(ctx, map_id, x + 1, y);
+        let p = p | check_single_land_buildable(ctx, map_id, x, y + 1);
+        let p = p | check_single_land_buildable(ctx, map_id, x + 1, y + 1);
         p
     }
 
