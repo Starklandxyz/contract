@@ -9,8 +9,6 @@ mod init {
     #[event]
     use stark_land::events::inited::{Event, MapInited};
 
-
-
     fn execute(ctx: Context) {
 
         let max_map_x: u64 = 100;

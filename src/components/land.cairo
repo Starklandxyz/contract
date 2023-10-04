@@ -13,7 +13,6 @@ struct Land {
     cost_gold: u64, //建筑总gold成本
     cost_food: u64, //建筑总food成本
     cost_iron: u64, //建筑总iron成本
-    warrior: u64, //驻守的士兵
 }
 
 #[generate_trait]
