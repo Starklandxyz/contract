@@ -67,7 +67,7 @@ mod build_base {
             return false;
         }
         //是否是不可建设用地
-        if (LandTrait::land_property(x, y) < 6) {
+        if (LandTrait::land_property(map_id, x, y) < 6) {
             return false;
         }
         true
