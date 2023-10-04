@@ -7,6 +7,7 @@ mod spawn {
     use dojo::world::Context;
 
     use stark_land::components::player::Player;
+    use stark_land::components::eth::ETH;
 
     fn execute(ctx: Context, nick_name: felt252) {
         let time_now: u64 = starknet::get_block_timestamp();
@@ -24,6 +25,7 @@ mod spawn {
                 },
             )
         );
+        set!(ctx.world, (ETH { id: ctx.origin, balance: 500_000_000_000_000_000 }));
         return ();
     }
 }

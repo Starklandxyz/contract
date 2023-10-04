@@ -7,3 +7,4 @@ mod gold;
 mod warrior;
 mod base;
 mod land_cost;
+mod eth;
