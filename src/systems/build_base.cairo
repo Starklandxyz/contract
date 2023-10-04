@@ -40,24 +40,23 @@ mod build_base {
 
     //todo : 判断该地块是否可以修建基地
     fn check_can_build_base(ctx: Context, map_id: u64, x: u64, y: u64) -> bool {
-        // let config = get!(ctx.world, map_id, (GlobalConfig));
-        // if (config.MAX_MAP_X == 0) {
-        //     return false;
-        // }
-        // let base = get!(ctx.world, (ctx.origin, map_id), Base);
-        // //already have base in this map
-        // if (base.x != 0 || base.y != 0) {
-        //     return false;
-        // }
-        // //exceed map size
-        // if (x + 1 > config.MAX_MAP_X || y + 1 > config.MAX_MAP_Y || x == 0 || y == 0) {
-        //     return false;
-        // }
         let p: bool = check_single_land_buildable(ctx, map_id, x, y);
-        let p = p | check_single_land_buildable(ctx, map_id, x + 1, y);
-        let p = p | check_single_land_buildable(ctx, map_id, x, y + 1);
-        let p = p | check_single_land_buildable(ctx, map_id, x + 1, y + 1);
-        p
+        if(!p){
+            return false;
+        }
+        let p = check_single_land_buildable(ctx, map_id, x + 1, y);
+        if(!p){
+            return false;
+        }
+        let p = check_single_land_buildable(ctx, map_id, x, y + 1);
+        if(!p){
+            return false;
+        }
+        let p = check_single_land_buildable(ctx, map_id, x + 1, y + 1);
+        if(!p){
+            return false;
+        }
+        true
     }
 
     fn check_single_land_buildable(ctx: Context, map_id: u64, x: u64, y: u64) -> bool {
