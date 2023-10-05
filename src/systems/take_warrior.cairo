@@ -12,7 +12,7 @@ mod take_warrior {
     use stark_land::components::warrior::Warrior;
     use stark_land::components::warrior_config::WarriorConfig;
 
-    fn execute(ctx: Context, map_id: u64, amount: u64) {
+    fn execute(ctx: Context, map_id: u64) {
         let time_now: u64 = starknet::get_block_timestamp();
 
         let mut training = get!(ctx.world, (map_id, ctx.origin), Training);
@@ -20,9 +20,7 @@ mod take_warrior {
         let config = get!(ctx.world, map_id, WarriorConfig);
         assert(config.Train_Food != 0, 'config not ready');
 
-        assert(
-            training.can_take_out_amount(config.Train_Time, time_now) >= amount, 'exceed amount'
-        );
+        let amount = training.can_take_out_amount(config.Train_Time, time_now);
 
         training.out = training.out + amount;
 

@@ -17,7 +17,7 @@ mod train_warrior {
     fn execute(ctx: Context, map_id: u64, amount: u64) {
         let time_now: u64 = starknet::get_block_timestamp();
 
-        let base = get!(ctx.world, ctx.origin, (Base));
+        let base = get!(ctx.world, (map_id, ctx.origin), Base);
         assert(base.x != 0 && base.y != 0, 'you not joined!');
 
         let config = get!(ctx.world, map_id, WarriorConfig);
@@ -25,6 +25,9 @@ mod train_warrior {
 
         let mut training = get!(ctx.world, (map_id, ctx.origin), Training);
         assert(time_now > training.end_time(config.Train_Time), 'train not finish');
+        assert(
+            training.can_take_out_amount(config.Train_Time, time_now) == 0, 'take warrior first'
+        );
 
         let food_need = config.Train_Food * amount;
         let mut food = get!(ctx.world, (map_id, ctx.origin), Food);
