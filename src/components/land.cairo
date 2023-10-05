@@ -18,12 +18,15 @@ struct Land {
 impl LandImpl of LandTrait {
     //土地属性为1-100的随机数,其中 1 是金矿,2~3是铁矿,4~5是水【均无法占领和建设】
     fn land_property(map_id: u64, x: u64, y: u64) -> u64 {
-        random(x * 99 + y + map_id * 17) % 100 + 1 // 1-100
+        let r1 = random(x * 99 + y + map_id * 17) % 100_u128 + 1_u128; // 1-100
+        let r2:u64 = r1.try_into().unwrap();
+        r2
     }
 
     //土著蛮族人数为1-50的随机数
     fn land_barbarians(map_id: u64, x: u64, y: u64) -> u64 {
-        random(x * 999 + y*3 + map_id * 77) % 50 + 1 // 1-50
+        let r1:u128 = random(x * 999 + y*3 + map_id * 77) % 50 + 1; // 1-50
+        r1.try_into().unwrap()
     }
 }
 

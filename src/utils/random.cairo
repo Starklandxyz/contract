@@ -1,8 +1,9 @@
 use traits::{Into, TryInto};
 use array::ArrayTrait;
+use debug::PrintTrait;
 
 // return a u64 number.
-fn random(seed: u64) -> u64  {
+fn random(seed: u64) -> u128  {
     let seed_felt: felt252 = seed.into();
     let mut rolling_seed_arr: Array<felt252> = ArrayTrait::new();
     rolling_seed_arr.append(seed_felt);
@@ -10,16 +11,17 @@ fn random(seed: u64) -> u64  {
     rolling_seed_arr.append(seed_felt * 29);
 
     let rolling_hash: u256 = poseidon::poseidon_hash_span(rolling_seed_arr.span()).into();
-    let x: u64 = (rolling_hash.low & 0x0000000000000000ffffffffffffffff).try_into().unwrap();
+    // rolling_hash.print();
+    let x: u128 = (rolling_hash.low);
+    // x.print();
     x
 }
 
 
-
-
 #[cfg(test)]
 mod tests {
-    use super::random;
+    use core::debug::PrintTrait;
+use super::random;
     //use debug::PrintTrait; X
     #[test]
     #[available_gas(30000000)]
@@ -36,5 +38,15 @@ mod tests {
         let seed4: u64 = 2000;   
         let result4 = random(seed4);
         assert((result1 == result2) && (result2 != result3 ) && (result3 != result4) , 'random err');
+
+        let r = random(10);
+        let x = 2;
+        let y = 1;
+        let map_id=1;
+        let r1 = random(x * 99 + y + map_id * 17) % 100_u128 + 1_u128; // 1-100
+        let r2:u64 = r1.try_into().unwrap();
+        r2.print();
     }
+
+    
 }
