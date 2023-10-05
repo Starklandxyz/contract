@@ -6,6 +6,7 @@ mod build_base {
     use option::OptionTrait;
     use dojo::world::Context;
 
+
     use stark_land::components::global_config::GlobalConfig;
     use stark_land::components::player::Player;
     use stark_land::components::base::Base;
@@ -17,23 +18,25 @@ mod build_base {
         assert(player.joined_time != 0, 'not joined!');
         assert(check_can_build_base(ctx, map_id, x, y), 'can not build here');
 
-        set!(ctx.world, (Base { id: ctx.origin, map_id: map_id, x: x, y: y },));
+        let base = get!(ctx.world, (map_id, ctx.origin), Base);
+        assert(base.x == 0 && base.y == 0, 'you have base');
+        set!(ctx.world, (Base { map_id: map_id, id: ctx.origin, x: x, y: y },));
 
         set!(
             ctx.world,
-            (Land { x: x, y: y, owner: ctx.origin, map_id: map_id, building: 1, level: 1 },)
+            (Land { map_id: map_id, x: x, y: y, owner: ctx.origin, building: 1, level: 1 },)
         );
         set!(
             ctx.world,
-            (Land { x: x, y: y + 1, owner: ctx.origin, map_id: map_id, building: 1, level: 1 },)
+            (Land { map_id: map_id, x: x, y: y + 1, owner: ctx.origin, building: 1, level: 1 },)
         );
         set!(
             ctx.world,
-            (Land { x: x + 1, y: y, owner: ctx.origin, map_id: map_id, building: 1, level: 1 },)
+            (Land { map_id: map_id, x: x + 1, y: y, owner: ctx.origin, building: 1, level: 1 },)
         );
         set!(
             ctx.world,
-            (Land { x: x + 1, y: y + 1, owner: ctx.origin, map_id: map_id, building: 1, level: 1 },)
+            (Land { map_id: map_id, x: x + 1, y: y + 1, owner: ctx.origin, building: 1, level: 1 },)
         );
         return ();
     }
@@ -41,19 +44,19 @@ mod build_base {
     //todo : 判断该地块是否可以修建基地
     fn check_can_build_base(ctx: Context, map_id: u64, x: u64, y: u64) -> bool {
         let p: bool = check_single_land_buildable(ctx, map_id, x, y);
-        if(!p){
+        if (!p) {
             return false;
         }
         let p = check_single_land_buildable(ctx, map_id, x + 1, y);
-        if(!p){
+        if (!p) {
             return false;
         }
         let p = check_single_land_buildable(ctx, map_id, x, y + 1);
-        if(!p){
+        if (!p) {
             return false;
         }
         let p = check_single_land_buildable(ctx, map_id, x + 1, y + 1);
-        if(!p){
+        if (!p) {
             return false;
         }
         true
@@ -69,7 +72,7 @@ mod build_base {
             return false;
         }
         //该地块是否有其他建筑，是否可以修建
-        let land = get!(ctx.world, (x, y, map_id), Land);
+        let land = get!(ctx.world, (map_id, x, y), Land);
         if (land.building != 0) {
             return false;
         }
