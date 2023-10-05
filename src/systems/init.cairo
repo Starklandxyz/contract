@@ -15,7 +15,14 @@ mod init {
         let max_map_y: u64 = 100;
 
         set!(ctx.world, (GlobalConfig { map_id: 1, MAX_MAP_X: max_map_x, MAX_MAP_Y: max_map_y },));
-        set!(ctx.world, (WarriorConfig { map_id: 1, Train_Food: 10, Train_Gold: 10, Train_Time: 30 },));
+        set!(
+            ctx.world,
+            (
+                WarriorConfig {
+                    map_id: 1, Train_Food: 10, Train_Gold: 10, Train_Iron: 10, Train_Time: 30
+                },
+            )
+        );
 
         emit!(ctx.world, MapInited { map_id: 1, MAX_MAP_X: max_map_x, MAX_MAP_Y: max_map_y });
 

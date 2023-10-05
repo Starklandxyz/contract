@@ -10,4 +10,4 @@ mod base;
 mod land_cost;
 mod eth;
 mod troop;
-mod march;
+mod training;
