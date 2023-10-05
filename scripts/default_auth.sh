@@ -29,6 +29,10 @@ sozo auth writer Training train_warrior --world $WORLD_ADDRESS
 sozo auth writer Training take_warrior --world $WORLD_ADDRESS
 sozo auth writer Warrior take_warrior --world $WORLD_ADDRESS
 
+sozo auth writer Food admin --world $WORLD_ADDRESS
+sozo auth writer Gold admin --world $WORLD_ADDRESS
+sozo auth writer Iron admin --world $WORLD_ADDRESS
+
 sozo execute init --world $WORLD_ADDRESS
 
 echo "Default authorizations have been successfully set."
