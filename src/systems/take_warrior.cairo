@@ -9,6 +9,7 @@ mod take_warrior {
     use stark_land::components::training::Training;
     use stark_land::components::training::TrainImpl;
 
+    use stark_land::components::base::Base;
     use stark_land::components::warrior::Warrior;
     use stark_land::components::warrior_config::WarriorConfig;
 
@@ -21,10 +22,12 @@ mod take_warrior {
         assert(config.Train_Food != 0, 'config not ready');
 
         let amount = training.can_take_out_amount(config.Train_Time, time_now);
+        assert(amount != 0, 'not claimable');
 
         training.out = training.out + amount;
 
-        let mut warrior = get!(ctx.world, (map_id, ctx.origin, 0, 0), Warrior);
+        let base = get!(ctx.world,(map_id,ctx.origin),Base);
+        let mut warrior = get!(ctx.world, (map_id, base.x, base.y), Warrior);
         warrior.balance = warrior.balance + amount;
 
         set!(ctx.world, (training, warrior));

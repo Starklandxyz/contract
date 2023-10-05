@@ -46,6 +46,7 @@ mod train_warrior {
 
         training.start_time = time_now;
         training.total = amount;
+        training.out = 0;
 
         set!(ctx.world, (food, iron, gold, training));
         return ();

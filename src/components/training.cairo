@@ -20,7 +20,14 @@ impl TrainImpl of TrainTrait {
 
     fn can_take_out_amount(self: @Training, train_time: u64, time_now: u64) -> u64 {
         let total_time = time_now - *self.start_time;
-        let total_trained = total_time/train_time;
-        total_trained - *self.out
+        let mut total_trained = total_time / train_time;
+        if (total_trained > *self.total) {
+            total_trained = *self.total;
+        }
+        if(total_trained > *self.out){
+            total_trained - *self.out
+        }else{
+            0
+        }
     }
 }
