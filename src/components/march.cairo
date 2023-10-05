@@ -8,7 +8,5 @@ struct March {
     entity: felt252,
     #[key]
     owner: ContractAddress,
-    #[key]
-    id: u64,
-
+    from_x : u64,
 }
