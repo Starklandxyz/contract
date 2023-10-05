@@ -1,15 +1,14 @@
 use starknet::ContractAddress;
 
-// 士兵可以出现在基地，出现在任意地块
+// 部队是出现在路上行军的军团
+// 用id来表示玩家军队编号,从1开始
 #[derive(Component, Copy, Drop, Serde, SerdeLen)]
-struct Warrior {
+struct March {
     #[key]
-    map_id: u64,
+    entity: felt252,
     #[key]
     owner: ContractAddress,
     #[key]
-    x: u64,
-    #[key]
-    y: u64,
-    balance: u64,
+    id: u64,
+
 }

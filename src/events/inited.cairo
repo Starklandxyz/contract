@@ -1,6 +1,6 @@
 #[derive(Drop, Clone, Serde, PartialEq, starknet::Event)]
 struct MapInited {
-    id: u64,
+    map_id: u64,
     MAX_MAP_X: u64,
     MAX_MAP_Y: u64
 }

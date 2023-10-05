@@ -4,11 +4,11 @@ use stark_land::utils::random::random;
 #[derive(Component, Copy, Drop, Serde, SerdeLen)]
 struct Land {
     #[key]
+    map_id: u64,
+    #[key]
     x: u64,
     #[key]
     y: u64,
-    #[key]
-    map_id: u64,
     owner: ContractAddress,
     building: u64, // 1==基地Base 4*4,2==农田Farmland,3==铁矿矿场IronMine,4==金矿矿场GoldMine,5==营地Camp
     level: u64,
