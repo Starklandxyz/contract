@@ -21,6 +21,14 @@ sozo auth writer Base build_base --world $WORLD_ADDRESS
 sozo auth writer Land build_base --world $WORLD_ADDRESS
 sozo auth writer GlobalConfig init --world $WORLD_ADDRESS
 
+sozo auth writer Food train_warrior --world $WORLD_ADDRESS
+sozo auth writer Iron train_warrior --world $WORLD_ADDRESS
+sozo auth writer Gold train_warrior --world $WORLD_ADDRESS
+sozo auth writer Training train_warrior --world $WORLD_ADDRESS
+
+sozo auth writer Training take_warrior --world $WORLD_ADDRESS
+sozo auth writer Warrior take_warrior --world $WORLD_ADDRESS
+
 sozo execute init --world $WORLD_ADDRESS
 
 echo "Default authorizations have been successfully set."

@@ -1,5 +1,5 @@
 #[system]
-mod buy_warrior {
+mod train_warrior {
     use array::ArrayTrait;
     use box::BoxTrait;
     use traits::{Into, TryInto};
