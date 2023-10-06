@@ -46,10 +46,10 @@ mod send_troop {
         assert(food.balance >= food_need, 'food not enough');
         food.balance = food.balance - food_need;
 
-        let gold_need = config.Troop_Gold * amount * dis;
-        let mut gold = get!(ctx.world, (map_id, ctx.origin), Gold);
-        assert(gold.balance >= gold_need, 'gold not enough');
-        gold.balance = gold.balance - gold_need;
+        // let gold_need = config.Troop_Gold * amount * dis;
+        // let mut gold = get!(ctx.world, (map_id, ctx.origin), Gold);
+        // assert(gold.balance >= gold_need, 'gold not enough');
+        // gold.balance = gold.balance - gold_need;
 
         warrior.balance = warrior.balance - amount;
         troop.start_time = time_now;
@@ -59,7 +59,7 @@ mod send_troop {
         troop.to_y = to_y;
         troop.balance = amount;
 
-        set!(ctx.world, (food, gold, warrior, troop));
+        set!(ctx.world, (food, warrior, troop));
         return ();
     }
 }
