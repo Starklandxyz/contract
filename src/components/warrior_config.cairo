@@ -8,4 +8,9 @@ struct WarriorConfig {
     Train_Gold:u64,
     Train_Iron:u64,
     Train_Time:u64,
+
+    //派兵的消耗的时间
+    Troop_Food:u64,
+    Troop_Gold:u64,
+    Troop_Speed:u64
 }
