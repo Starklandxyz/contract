@@ -19,7 +19,7 @@ mod init {
             ctx.world,
             (
                 WarriorConfig {
-                    map_id: 1, Train_Food: 10, Train_Gold: 10, Train_Iron: 0, Train_Time: 30
+                    map_id: 1, Train_Food: 10, Train_Gold: 10, Train_Iron: 0, Train_Time: 10
                 },
             )
         );
