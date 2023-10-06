@@ -10,6 +10,7 @@ mod take_warrior {
     use stark_land::components::training::TrainImpl;
 
     use stark_land::components::base::Base;
+    use stark_land::components::user_warrior::UserWarrior;
     use stark_land::components::warrior::Warrior;
     use stark_land::components::warrior_config::WarriorConfig;
 
@@ -30,7 +31,10 @@ mod take_warrior {
         let mut warrior = get!(ctx.world, (map_id, base.x, base.y), Warrior);
         warrior.balance = warrior.balance + amount;
 
-        set!(ctx.world, (training, warrior));
+        let mut user_warrior = get!(ctx.world,(map_id,ctx.origin),UserWarrior);
+        user_warrior.balance = user_warrior.balance + amount;
+
+        set!(ctx.world, (training, warrior,user_warrior));
         return ();
     }
 }

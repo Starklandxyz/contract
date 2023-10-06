@@ -11,3 +11,4 @@ mod land_cost;
 mod eth;
 mod troop;
 mod training;
+mod user_warrior;

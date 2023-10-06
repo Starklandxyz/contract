@@ -28,6 +28,7 @@ sozo auth writer Training train_warrior --world $WORLD_ADDRESS
 
 sozo auth writer Training take_warrior --world $WORLD_ADDRESS
 sozo auth writer Warrior take_warrior --world $WORLD_ADDRESS
+sozo auth writer UserWarrior take_warrior --world $WORLD_ADDRESS
 
 sozo auth writer Food admin --world $WORLD_ADDRESS
 sozo auth writer Gold admin --world $WORLD_ADDRESS
