@@ -34,12 +34,12 @@ mod train_warrior {
         assert(food.balance >= food_need, 'food not enough');
         food.balance = food.balance - food_need;
 
-        let iron_need = config.Train_Gold * amount;
+        let iron_need = config.Train_Iron * amount;
         let mut iron = get!(ctx.world, (map_id, ctx.origin), Iron);
         assert(iron.balance >= iron_need, 'iron not enough');
         iron.balance = iron.balance - iron_need;
 
-        let gold_need = config.Train_Iron * amount;
+        let gold_need = config.Train_Gold * amount;
         let mut gold = get!(ctx.world, (map_id, ctx.origin), Gold);
         assert(gold.balance >= gold_need, 'gold not enough');
         gold.balance = gold.balance - gold_need;
