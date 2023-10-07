@@ -47,6 +47,8 @@ mod send_troop {
         let mut troop = get!(ctx.world, (map_id, ctx.origin, troop_id), Troop);
         assert(troop.start_time == 0, 'troop is used');
 
+
+
         let mut dis = TroopTrait::distance(from_x, from_y, to_x, to_y);
         let base = get!(ctx.world, (map_id, ctx.origin), Base);
         if (base.x == from_x && base.y == from_y) {
@@ -59,8 +61,8 @@ mod send_troop {
                 dis = dis3;
             }
             let dis4 = TroopTrait::distance(from_x + 1, from_y + 1, to_x, to_y);
-            if (dis > dis3) {
-                dis = dis3;
+            if (dis > dis4) {
+                dis = dis4;
             }
         }
 
