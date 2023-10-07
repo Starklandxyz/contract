@@ -33,11 +33,18 @@ mod send_troop {
         let land = get!(ctx.world, (map_id, from_x, from_y), Land);
         assert(land.owner == ctx.origin, 'not your land');
 
+        assert(from_x != to_x || from_y != to_y, 'same land');
+        if (land.building == 1) {
+            if (to_y >= from_y && to_y <= from_y + 1 && to_x <= from_x + 1 && to_x >= from_x) {
+                panic_with_felt252('is your base');
+            }
+        }
+
         let mut warrior = get!(ctx.world, (map_id, from_x, from_y), Warrior);
         assert(warrior.balance >= amount, 'warrior not enough');
 
         let mut troop = get!(ctx.world, (map_id, ctx.origin, troop_id), Troop);
-        assert(troop.start_time == 0, 'troop not available');
+        assert(troop.start_time == 0, 'troop is used');
 
         let dis = TroopTrait::distance(from_x, from_y, to_x, to_y);
 
