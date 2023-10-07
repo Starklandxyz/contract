@@ -1,6 +1,7 @@
 mod land;
 mod global_config;
 mod warrior_config;
+mod build_config;
 mod player;
 mod food;
 mod iron;
@@ -12,3 +13,4 @@ mod eth;
 mod troop;
 mod training;
 mod user_warrior;
+mod build_price;

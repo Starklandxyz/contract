@@ -7,6 +7,7 @@ mod send_troop {
     use dojo::world::Context;
 
     use stark_land::components::warrior_config::WarriorConfig;
+    use stark_land::components::build_config::BuildConfig;
     use stark_land::components::land::Land;
     use stark_land::components::land::LandTrait;
     use stark_land::components::warrior::Warrior;
@@ -35,8 +36,9 @@ mod send_troop {
         let land = get!(ctx.world, (map_id, from_x, from_y), Land);
         assert(land.owner == ctx.origin, 'not your land');
 
-        let to_land_type = LandTrait::land_property(map_id,to_x,to_y);
-        assert(to_land_type>5, 'can not send troop');
+        let build_config = get!(ctx.world, map_id, BuildConfig);
+        let to_land_type = LandTrait::land_property(map_id, to_x, to_y);
+        assert(to_land_type >= build_config.Land_None, 'can not send troop');
 
         assert(from_x != to_x || from_y != to_y, 'same land');
         if (land.building == 1) {

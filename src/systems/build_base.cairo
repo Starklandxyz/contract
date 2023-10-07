@@ -8,6 +8,7 @@ mod build_base {
 
 
     use stark_land::components::global_config::GlobalConfig;
+    use stark_land::components::build_config::BuildConfig;
     use stark_land::components::player::Player;
     use stark_land::components::base::Base;
     use stark_land::components::land::Land;
@@ -64,6 +65,7 @@ mod build_base {
 
     fn check_single_land_buildable(ctx: Context, map_id: u64, x: u64, y: u64) -> bool {
         let config = get!(ctx.world, map_id, (GlobalConfig));
+        let build_config = get!(ctx.world,map_id,BuildConfig);
         if (config.MAX_MAP_X == 0) {
             return false;
         }
@@ -77,7 +79,7 @@ mod build_base {
             return false;
         }
         //是否是不可建设用地
-        if (LandTrait::land_property(map_id, x, y) < 6) {
+        if (LandTrait::land_property(map_id, x, y) < build_config.Land_None) {
             return false;
         }
         true
