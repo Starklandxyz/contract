@@ -17,6 +17,8 @@ mod go_fight {
     use stark_land::components::troop::Troop;
     use stark_land::components::Troop::TroopImpl;
 
+    use rand::Rng;
+
     fn execute(ctx: Context, map_id: u64,my_troop_id: u64,other_troop_id: u64) {
 
         // 根据MapId 获取地址，已经获取到对方玩家信息、计算双方人数、时间复杂度最少
@@ -33,7 +35,7 @@ mod go_fight {
 
         // 扩大 100 倍
         let actual_attack_power_y = y * 130; // 扩大 100 倍
-        let win_rate_x = x * 10000 / (actual_attack_power_y + x * 100);   // x 放大 10000 和胜负率类似
+        let win_rate_x = x * 10000 / (actual_attack_power_y + x * 100);   // x 放大 10000 和胜负率.类似
         let random_loss_x = rand::thread_rng().gen_range(0..(100 - win_rate_x)) * x / 100;
     
         let win_rate_y = actual_attack_power_y *10000 / (actual_attack_power_y + x * 100);
