@@ -19,6 +19,7 @@ struct Troop {
     to_y: u64,
     //出发时间
     start_time: u64,
+    distance:u64,
 }
 
 #[generate_trait]

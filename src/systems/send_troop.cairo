@@ -9,6 +9,7 @@ mod send_troop {
     use stark_land::components::warrior_config::WarriorConfig;
     use stark_land::components::land::Land;
     use stark_land::components::warrior::Warrior;
+    use stark_land::components::base::Base;
     use stark_land::components::food::Food;
     use stark_land::components::iron::Iron;
     use stark_land::components::gold::Gold;
@@ -46,7 +47,22 @@ mod send_troop {
         let mut troop = get!(ctx.world, (map_id, ctx.origin, troop_id), Troop);
         assert(troop.start_time == 0, 'troop is used');
 
-        let dis = TroopTrait::distance(from_x, from_y, to_x, to_y);
+        let mut dis = TroopTrait::distance(from_x, from_y, to_x, to_y);
+        let base = get!(ctx.world, (map_id, ctx.origin), Base);
+        if (base.x == from_x && base.y == from_y) {
+            let dis2 = TroopTrait::distance(from_x + 1, from_y, to_x, to_y);
+            if (dis > dis2) {
+                dis = dis2;
+            }
+            let dis3 = TroopTrait::distance(from_x, from_y + 1, to_x, to_y);
+            if (dis > dis3) {
+                dis = dis3;
+            }
+            let dis4 = TroopTrait::distance(from_x + 1, from_y + 1, to_x, to_y);
+            if (dis > dis3) {
+                dis = dis3;
+            }
+        }
 
         let food_need = config.Troop_Food * amount * dis;
         let mut food = get!(ctx.world, (map_id, ctx.origin), Food);
@@ -65,6 +81,7 @@ mod send_troop {
         troop.to_x = to_x;
         troop.to_y = to_y;
         troop.balance = amount;
+        troop.distance = dis;
 
         set!(ctx.world, (food, warrior, troop));
         return ();
