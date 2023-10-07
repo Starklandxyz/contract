@@ -80,6 +80,7 @@ mod send_troop {
         troop.from_y = from_y;
         troop.to_x = to_x;
         troop.to_y = to_y;
+        troop.retreat = false;
         troop.balance = amount;
         troop.distance = dis;
 

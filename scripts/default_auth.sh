@@ -40,6 +40,9 @@ sozo auth writer Warrior send_troop --world $WORLD_ADDRESS
 
 sozo auth writer Troop retreat_troop --world $WORLD_ADDRESS
 
+sozo auth writer Troop enter_land --world $WORLD_ADDRESS
+sozo auth writer Warrior enter_land --world $WORLD_ADDRESS
+
 sozo execute init --world $WORLD_ADDRESS
 
 echo "Default authorizations have been successfully set."
