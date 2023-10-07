@@ -34,7 +34,7 @@ mod enter_land {
         let land = get!(ctx.world,(map_id,troop.to_x,troop.to_y),Land);
         assert(land.owner==ctx.origin, 'not your land');
 
-        let warrior = get!(ctx.world,(map_id,troop.to_x,troop.to_y),Warrior);
+        let mut warrior = get!(ctx.world,(map_id,troop.to_x,troop.to_y),Warrior);
         warrior.balance = warrior.balance + troop.balance;
 
         set!(ctx.world, (troop,warrior));
