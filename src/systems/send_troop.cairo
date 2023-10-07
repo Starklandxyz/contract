@@ -20,7 +20,7 @@ mod send_troop {
         ctx: Context,
         map_id: u64,
         amount: u64,
-        troop_id: u64,
+        troop_index: u64,
         from_x: u64,
         from_y: u64,
         to_x: u64,
@@ -44,10 +44,8 @@ mod send_troop {
         let mut warrior = get!(ctx.world, (map_id, from_x, from_y), Warrior);
         assert(warrior.balance >= amount, 'warrior not enough');
 
-        let mut troop = get!(ctx.world, (map_id, ctx.origin, troop_id), Troop);
+        let mut troop = get!(ctx.world, (map_id, ctx.origin, troop_index), Troop);
         assert(troop.start_time == 0, 'troop is used');
-
-
 
         let mut dis = TroopTrait::distance(from_x, from_y, to_x, to_y);
         let base = get!(ctx.world, (map_id, ctx.origin), Base);
