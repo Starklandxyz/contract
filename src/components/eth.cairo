@@ -5,6 +5,6 @@ use starknet::ContractAddress;
 #[derive(Component, Copy, Drop, Serde, SerdeLen)]
 struct ETH {
     #[key]
-    id: ContractAddress,
+    owner: ContractAddress,
     balance: u128,
 }

@@ -20,7 +20,7 @@ mod build_base {
 
         let base = get!(ctx.world, (map_id, ctx.origin), Base);
         assert(base.x == 0 && base.y == 0, 'you have base');
-        set!(ctx.world, (Base { map_id: map_id, id: ctx.origin, x: x, y: y },));
+        set!(ctx.world, (Base { map_id: map_id, owner: ctx.origin, x: x, y: y },));
 
         set!(
             ctx.world,

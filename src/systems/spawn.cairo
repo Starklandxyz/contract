@@ -19,13 +19,13 @@ mod spawn {
             ctx.world,
             (
                 Player {
-                    id: ctx.origin, // 玩家钱包地址
+                    owner: ctx.origin, // 玩家钱包地址
                     nick_name: nick_name,
                     joined_time: time_now
                 },
             )
         );
-        set!(ctx.world, (ETH { id: ctx.origin, balance: 500_000_000_000_000_000 }));
+        set!(ctx.world, (ETH { owner: ctx.origin, balance: 500_000_000_000_000_000 }));
         return ();
     }
 }

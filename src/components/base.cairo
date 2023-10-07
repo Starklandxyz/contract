@@ -5,7 +5,7 @@ struct Base {
     #[key]
     map_id:u64,
     #[key]
-    id: ContractAddress,
+    owner: ContractAddress,
     x: u64,
     y: u64,
 }
