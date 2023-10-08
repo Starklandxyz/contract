@@ -44,10 +44,13 @@ sozo auth writer Troop enter_land --world $WORLD_ADDRESS
 sozo auth writer Warrior enter_land --world $WORLD_ADDRESS
 
 sozo auth writer Land build_building --world $WORLD_ADDRESS
-sozo auth writer LandCose build_building --world $WORLD_ADDRESS
+sozo auth writer LandCost build_building --world $WORLD_ADDRESS
 sozo auth writer Food build_building --world $WORLD_ADDRESS
 sozo auth writer Gold build_building --world $WORLD_ADDRESS
 sozo auth writer Iron build_building --world $WORLD_ADDRESS
+
+sozo auth writer LandMiner start_mining --world $WORLD_ADDRESS
+sozo auth writer LandMining start_mining --world $WORLD_ADDRESS
 
 sozo execute init --world $WORLD_ADDRESS
 
