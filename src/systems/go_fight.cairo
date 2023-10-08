@@ -55,7 +55,6 @@ mod go_fight {
             isLand_None=1
         }else{
             yWarrior = get!(ctx.world, (map_id, to_x, to_y), Warrior);
-            assert(yWarrior.balance >= 0, 'warrior not enough');
             y = yWarrior.balance;
         }
 
