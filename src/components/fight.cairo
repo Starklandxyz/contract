@@ -12,7 +12,7 @@ struct Fight {
 #[generate_trait]
 impl FightImpl of FightTrait {
 
-    fn win_rate(self: @Training, my_warriors_num: u64, other_warriors_num: u64) -> u64 {
+    fn win_rate(self: @Fight, my_warriors_num: u64, other_warriors_num: u64) -> u64 {
 
         // 胜率是固定，根据当前人数而定
         my_warriors_num * 10000/ (my_warriors_num * 100 + other_warriors_num * 130)
