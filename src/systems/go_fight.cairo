@@ -17,6 +17,9 @@ mod go_fight {
     use stark_land::components::troop::Troop;
     use stark_land::components::Troop::TroopImpl;
 
+    use stark_land::components::land::Land;
+    use stark_land::components::land::LandTrait;
+
     use rand::Rng;
 
     fn execute(
