@@ -36,8 +36,6 @@ mod go_fight {
         let build_config = get!(ctx.world, map_id, BuildConfig);
         let to_land_type = LandTrait::land_property(map_id, to_x, to_y);
 
-        assert(to_land_type >= build_config.Land_None, 'can not send troop');
-
         let mut x = 0 ;
         let mut y = 0;
 
@@ -46,7 +44,7 @@ mod go_fight {
         let mut yWarrior;
 
         if(to_land_type >= build_config.Land_None){
-        // 如果是无主之地 获取野蛮人数量
+        // 如果是无主之地，获取野蛮人数量
             let barbarians = LandTrait::land_barbarians(map_id, to_x, to_y);
             y = barbarians;
             isLand_None=1
