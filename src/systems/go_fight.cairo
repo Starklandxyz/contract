@@ -41,15 +41,19 @@ mod go_fight {
         let mut x = 0 ;
         let mut y = 0;
 
+        let mut isLand_None=0;
+
+        let mut yWarrior;
+
         if(to_land_type >= build_config.Land_None){
         // 如果是无主之地 获取野蛮人数量
             let barbarians = LandTrait::land_barbarians(map_id, to_x, to_y);
             y = barbarians;
-
+            isLand_None=1
         }else{
-            let mut warrior = get!(ctx.world, (map_id, to_x, to_y), Warrior);
-            assert(warrior.balance >= 0, 'warrior not enough');
-            y = warrior.balance;
+            yWarrior = get!(ctx.world, (map_id, to_x, to_y), Warrior);
+            assert(yWarrior.balance >= 0, 'warrior not enough');
+            y = yWarrior.balance;
         }
 
         let mut myWarrior = get!(ctx.world, (map_id, from_x, from_y), Warrior);
@@ -72,7 +76,22 @@ mod go_fight {
         // 更新人数，放大 100 最后缩小 100 是否丢失精度
         // 更新双方人员数据 
     
+        let mut troop = get!(ctx.world,(map_id,ctx.origin,troop_index),Troop);
+
         set!(ctx.world, (training, warrior,user_warrior));
+
+        if(isLand_None==1){
+        // 更新野蛮人
+            
+        else{
+        // 更新土地的 wai
+            yWarrior.balance = y - random_loss_y;
+            set!(ctx.world, (map_id, to_x, to_y), Warrior);
+        }
+
+        set!(ctx.world, (troop,myWarrior));
+
+
         return ();
     }
 }
