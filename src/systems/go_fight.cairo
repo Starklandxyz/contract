@@ -84,8 +84,8 @@ mod go_fight {
         if(isLand_None==1){
         // 更新野蛮人
 
-        else{
-        // 更新土地的 wai
+        }else{
+        // 更新土地的 Warrior
             yWarrior.balance = y - random_loss_y;
             set!(ctx.world, (map_id, to_x, to_y), Warrior);
         }
@@ -95,6 +95,8 @@ mod go_fight {
 
         let mut user_warrior = get!(ctx.world,(map_id,ctx.origin),UserWarrior);
         user_warrior.balance = user_warrior.balance - random_loss_x;
+        set!(ctx.world, (user_warrior));
+
 
         return ();
     }
