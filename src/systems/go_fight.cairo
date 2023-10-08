@@ -48,7 +48,7 @@ mod go_fight {
 
         }else{
             let mut warrior = get!(ctx.world, (map_id, to_x, to_y), Warrior);
-            assert(warrior.balance >= amount, 'warrior not enough');
+            assert(warrior.balance >= 0, 'warrior not enough');
             y = warrior.balance;
         }
 
