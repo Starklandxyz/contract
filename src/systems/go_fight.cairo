@@ -19,15 +19,43 @@ mod go_fight {
 
     use rand::Rng;
 
-    fn execute(ctx: Context, map_id: u64,my_troop_id: u64,other_troop_id: u64) {
+    fn execute(
+        ctx: Context,
+        map_id: u64,
+        amount: u64,
+        troop_index: u64,
+        from_x: u64,
+        from_y: u64,
+        to_x: u64,
+        to_y: u64) {
 
         // 根据MapId 获取地址，已经获取到对方玩家信息、计算双方人数、时间复杂度最少
 
         let time_now: u64 = starknet::get_block_timestamp();
 
-        let mut my_troop = get!(ctx.world, (map_id, ctx.origin, my_troop_id), Troop);
-        let mut other_troop = get!(ctx.world, (map_id, ctx.origin, other_troop_id), Troop);
-        
+        let build_config = get!(ctx.world, map_id, BuildConfig);
+        let to_land_type = LandTrait::land_property(map_id, to_x, to_y);
+
+        assert(to_land_type >= build_config.Land_None, 'can not send troop');
+
+        let mut x = 0 ;
+        let mut y = 0;
+
+        if(to_land_type >= build_config.Land_None){
+        // 如果是无主之地 获取野蛮人数量
+            let barbarians = LandTrait::land_barbarians(map_id, to_x, to_y);
+            y = barbarians;
+
+        }else{
+            let mut warrior = get!(ctx.world, (map_id, to_x, to_y), Warrior);
+            assert(warrior.balance >= amount, 'warrior not enough');
+            y = warrior.balance;
+        }
+
+        let mut myWarrior = get!(ctx.world, (map_id, from_x, from_y), Warrior);
+
+        x = myWarrior.balance;
+
         // x 人数、y 人数，y 实际攻击力是 y * 1.3、
         // 胜率是 x = x / 1.3*y + x , x 损失人数是 [0，（1 -（ x / 1.3*y + x]  的随机值 * x 
         // 胜率是 y = 1.3*y / 1.3*y + x , x 损失人数是 [0,（1 -（ y / 1.3*y + x）* y]  的随机值 * y
