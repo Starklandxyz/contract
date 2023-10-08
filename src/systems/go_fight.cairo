@@ -78,8 +78,6 @@ mod go_fight {
     
         let mut troop = get!(ctx.world,(map_id,ctx.origin,troop_index),Troop);
 
-        set!(ctx.world, (training, warrior,user_warrior));
-
         if(isLand_None==1){
         // 更新野蛮人
 
