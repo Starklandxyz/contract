@@ -9,3 +9,4 @@ mod retreat_troop;
 mod enter_land;
 mod build_building;
 mod start_mining;
+mod go_fight;

@@ -16,3 +16,4 @@ mod user_warrior;
 mod build_price;
 mod land_miner;
 mod land_mining;
+mod fight;

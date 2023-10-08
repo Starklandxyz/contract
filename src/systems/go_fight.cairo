@@ -13,6 +13,8 @@ mod go_fight {
     use stark_land::components::user_warrior::UserWarrior;
     use stark_land::components::warrior::Warrior;
     use stark_land::components::warrior_config::WarriorConfig;
+    use stark_land::components::build_config::BuildConfig;
+
 
     use stark_land::components::troop::Troop;
     use stark_land::components::Troop::TroopImpl;
@@ -88,9 +90,11 @@ mod go_fight {
             set!(ctx.world, (map_id, to_x, to_y), Warrior);
         }
 
-        myWarrior = x - random_loss_x;
+        myWarrior.balance = x - random_loss_x;
         set!(ctx.world, (troop,myWarrior));
 
+        let mut user_warrior = get!(ctx.world,(map_id,ctx.origin),UserWarrior);
+        user_warrior.balance = user_warrior.balance - random_loss_x;
 
         return ();
     }
