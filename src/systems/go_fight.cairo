@@ -82,13 +82,14 @@ mod go_fight {
 
         if(isLand_None==1){
         // 更新野蛮人
-            
+
         else{
         // 更新土地的 wai
             yWarrior.balance = y - random_loss_y;
             set!(ctx.world, (map_id, to_x, to_y), Warrior);
         }
 
+        myWarrior = x - random_loss_x;
         set!(ctx.world, (troop,myWarrior));
 
 
