@@ -7,6 +7,8 @@ struct Fight {
     map_id: u64,
     #[key]
     owner: ContractAddress,
+    total: u64, 
+    out: u64, 
 }
 
 #[generate_trait]

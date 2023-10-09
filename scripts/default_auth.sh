@@ -52,7 +52,6 @@ sozo auth writer Iron build_building --world $WORLD_ADDRESS
 sozo auth writer LandMiner start_mining --world $WORLD_ADDRESS
 sozo auth writer LandMining start_mining --world $WORLD_ADDRESS
 
-sozo auth writer fight go_fight --world $WORLD_ADDRESS
 sozo auth writer Land go_fight --world $WORLD_ADDRESS
 sozo auth writer Warrior go_fight --world $WORLD_ADDRESS
 sozo auth writer Troop go_fight --world $WORLD_ADDRESS

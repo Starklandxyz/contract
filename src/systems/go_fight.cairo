@@ -6,9 +6,6 @@ mod go_fight {
     use option::OptionTrait;
     use dojo::world::Context;
 
-    use stark_land::components::fight::Fight;
-    use stark_land::components::fight::FightImpl;
-
     use stark_land::components::base::Base;
     use stark_land::components::user_warrior::UserWarrior;
     use stark_land::components::warrior::Warrior;
