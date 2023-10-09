@@ -22,7 +22,7 @@ mod go_fight {
     use stark_land::components::land::Land;
     use stark_land::components::land::LandTrait;
 
-    use rand::Rng;
+    use stark_land::utils::random::random;
 
     fn execute(
         ctx: Context,
@@ -69,11 +69,14 @@ mod go_fight {
 
         // 扩大 100 倍
         let actual_attack_power_y = y * 130; // 扩大 100 倍
+        
         let win_rate_x = x * 10000 / (actual_attack_power_y + x * 100);   // x 放大 10000 和胜负率.类似
-        let random_loss_x = rand::thread_rng().gen_range(0..(100 - win_rate_x)) * x / 100;
-    
+
+        let random_loss_x = random(x * 99 + y + map_id * 17) % win_rate_x + 1_u128; // 1-100
+
         let win_rate_y = actual_attack_power_y *10000 / (actual_attack_power_y + x * 100);
-        let random_loss_y = rand::thread_rng().gen_range(0..(100 - win_rate_y)) * y / 100;
+
+        let random_loss_y = random(x * 99 + y + map_id * 17) % win_rate_y + 1_u128; // 1-100
 
         // 更新人数，放大 100 最后缩小 100 是否丢失精度
         // 更新双方人员数据 
