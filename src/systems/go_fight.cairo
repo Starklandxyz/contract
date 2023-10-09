@@ -17,12 +17,14 @@ mod go_fight {
 
 
     use stark_land::components::troop::Troop;
-    use stark_land::components::Troop::TroopImpl;
+    use stark_land::components::troop::TroopImpl;
 
     use stark_land::components::land::Land;
     use stark_land::components::land::LandTrait;
 
     use stark_land::utils::random::random;
+    use castle::{u64, u128}; 
+
 
     fn execute(
         ctx: Context,
@@ -46,15 +48,13 @@ mod go_fight {
 
         let mut isLand_None=0;
 
-        let mut yWarrior;
-
         if(to_land_type >= build_config.Land_None){
         // 如果是无主之地，获取野蛮人数量
             let barbarians = LandTrait::land_barbarians(map_id, to_x, to_y);
             y = barbarians;
             isLand_None=1
         }else{
-            yWarrior = get!(ctx.world, (map_id, to_x, to_y), Warrior);
+           let mut yWarrior = get!(ctx.world, (map_id, to_x, to_y), Warrior);
             y = yWarrior.balance;
         }
 
@@ -69,35 +69,35 @@ mod go_fight {
 
         // 扩大 100 倍
         let actual_attack_power_y = y * 130; // 扩大 100 倍
-        
+
         let win_rate_x = x * 10000 / (actual_attack_power_y + x * 100);   // x 放大 10000 和胜负率.类似
 
-        let random_loss_x = random(x * 99 + y + map_id * 17) % win_rate_x + 1_u128; // 1-100
+        let random_loss_x = random(x * 99 + y + map_id * 17) % win_rate_x as u128 + 1_u128; // 1-100
 
         let win_rate_y = actual_attack_power_y *10000 / (actual_attack_power_y + x * 100);
 
-        let random_loss_y = random(x * 99 + y + map_id * 17) % win_rate_y + 1_u128; // 1-100
+        let random_loss_y = random(x * 99 + y + map_id * 17) % win_rate_y as u128 + 1_u128; // 1-100
 
         // 更新人数，放大 100 最后缩小 100 是否丢失精度
         // 更新双方人员数据 
     
-        let mut troop = get!(ctx.world,(map_id,ctx.origin,troop_index),Troop);
+        // let mut troop = get!(ctx.world,(map_id,ctx.origin,troop_index),Troop);
 
         if(isLand_None==1){
         // 更新野蛮人
 
         }else{
         // 更新土地的 Warrior
-            yWarrior.balance = y - random_loss_y;
-            set!(ctx.world, (map_id, to_x, to_y), Warrior);
+            // yWarrior.balance = y - random_loss_y;
+            // set!(ctx.world, (map_id, to_x, to_y), Warrior);
         }
 
-        myWarrior.balance = x - random_loss_x;
-        set!(ctx.world, (troop,myWarrior));
+        myWarrior.balance = x - random_loss_x as u128;
+        // set!(ctx.world, (troop,myWarrior));
 
         let mut user_warrior = get!(ctx.world,(map_id,ctx.origin),UserWarrior);
-        user_warrior.balance = user_warrior.balance - random_loss_x;
-        set!(ctx.world, (user_warrior));
+        user_warrior.balance = user_warrior.balance - u64::to_u128(random_loss_x);
+        // set!(ctx.world, (user_warrior));
 
 
         return ();
