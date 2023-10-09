@@ -23,6 +23,7 @@ mod go_fight {
     use stark_land::components::land::LandTrait;
 
     use stark_land::utils::random::random;
+    use starknet::ContractAddress;
 
     fn execute(
         ctx: Context,
@@ -71,13 +72,15 @@ mod go_fight {
 
         let win_rate_x:u64 = x * 10000 / (actual_attack_power_y + x * 100);   // x 放大 10000 和胜负率.类似
 
-        let r1:u128 = random(x * 99 + y + map_id * 17);
+        let r1:u128 = random(x * 99 + y + map_id * 17) + 1_u128;
 
-        let random_loss_x: u64 = r1.try_info.unwrap % win_rate_x; // 1-100
+        let r2:u64 = r1.try_into().unwrap();
+
+        let random_loss_x: u64 = r2 % win_rate_x; // 1-100
 
         let win_rate_y: u64 = actual_attack_power_y *10000 / (actual_attack_power_y + x * 100);
 
-        let random_loss_y: u64 = r1.try_info.unwrap % win_rate_y; // 1-100
+        let random_loss_y: u64 = r2 % win_rate_y; // 1-100
 
         // 更新人数，放大 100 最后缩小 100 是否丢失精度
         // 更新双方人员数据 
