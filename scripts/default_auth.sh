@@ -32,9 +32,10 @@ sozo auth writer Training take_warrior --world $WORLD_ADDRESS
 sozo auth writer Warrior take_warrior --world $WORLD_ADDRESS
 sozo auth writer UserWarrior take_warrior --world $WORLD_ADDRESS
 
-sozo auth writer Food admin --world $WORLD_ADDRESS
-sozo auth writer Gold admin --world $WORLD_ADDRESS
-sozo auth writer Iron admin --world $WORLD_ADDRESS
+sozo auth writer Food airdrop --world $WORLD_ADDRESS
+sozo auth writer Gold airdrop --world $WORLD_ADDRESS
+sozo auth writer Iron airdrop --world $WORLD_ADDRESS
+sozo auth writer Airdrop airdrop --world $WORLD_ADDRESS
 
 sozo auth writer Food send_troop --world $WORLD_ADDRESS
 sozo auth writer Troop send_troop --world $WORLD_ADDRESS
