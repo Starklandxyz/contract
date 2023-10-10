@@ -112,15 +112,13 @@ mod go_fight {
 
             } else {
                 // 敌人回家、更新敌人基地人数、更新敌人兵团人数
-                let base = get!(ctx.world, (map_id, y_address), Base);
-
                 y_warrior.balance = y_warrior.balance + y;
 
-                let mut user_warrior = get!(ctx.world, (map_id, y_address), UserWarrior);
+                let mut y_user_warrior = get!(ctx.world, (map_id, y_address), UserWarrior);
 
-                user_warrior.balance = user_warrior.balance - random_loss_y;
+                y_user_warrior.balance = y_user_warrior.balance - random_loss_y;
 
-                set!(ctx.world, (y_warrior, user_warrior));
+                set!(ctx.world, (y_warrior, y_user_warrior));
             }
         } else {
             // 人数加回基地
