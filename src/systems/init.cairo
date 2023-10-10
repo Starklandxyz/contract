@@ -14,20 +14,28 @@ mod init {
     fn execute(ctx: Context) {
         let max_map_x: u64 = 100;
         let max_map_y: u64 = 100;
+        let multiplier: u64 = 1_000_000;
 
-        set!(ctx.world, (GlobalConfig { map_id: 1, MAX_MAP_X: max_map_x, MAX_MAP_Y: max_map_y },));
+        set!(
+            ctx.world,
+            (
+                GlobalConfig {
+                    map_id: 1, MULTIPLIER: multiplier, MAX_MAP_X: max_map_x, MAX_MAP_Y: max_map_y
+                },
+            )
+        );
         set!(
             ctx.world,
             (
                 WarriorConfig {
                     map_id: 1,
-                    Train_Food: 10,
-                    Train_Gold: 10,
-                    Train_Iron: 0,
+                    Train_Food: 10 * multiplier,
+                    Train_Gold: 10 * multiplier,
+                    Train_Iron: 0 * multiplier,
                     Train_Time: 10,
-                    Troop_Food: 10,
-                    Troop_Gold: 0,
-                    Troop_Speed: 10
+                    Troop_Food: 10 * multiplier,
+                    Troop_Gold: 0 * multiplier,
+                    Troop_Speed: 10 * multiplier
                 },
             )
         );
@@ -51,15 +59,51 @@ mod init {
             ctx.world,
             (MiningConfig {
                 map_id: 1,
-                Food_Speed: 1000, 
-                Gold_Speed: 1000, 
-                Iron_Speed: 1000, 
+                Food_Speed: multiplier / 10, //0.1 per sec
+                Gold_Speed: multiplier / 10, //
+                Iron_Speed: multiplier / 10, //
             })
         );
-        set!(ctx.world, (BuildPrice { map_id: 1, build_type: 2, gold: 100, food: 100, iron: 100 }));
-        set!(ctx.world, (BuildPrice { map_id: 1, build_type: 3, gold: 100, food: 100, iron: 100 }));
-        set!(ctx.world, (BuildPrice { map_id: 1, build_type: 4, gold: 100, food: 100, iron: 100 }));
-        set!(ctx.world, (BuildPrice { map_id: 1, build_type: 5, gold: 100, food: 100, iron: 100 }));
+        set!(
+            ctx.world,
+            (BuildPrice {
+                map_id: 1,
+                build_type: 2,
+                gold: 100 * multiplier,
+                food: 100 * multiplier,
+                iron: 100 * multiplier
+            })
+        );
+        set!(
+            ctx.world,
+            (BuildPrice {
+                map_id: 1,
+                build_type: 3,
+                gold: 100 * multiplier,
+                food: 100 * multiplier,
+                iron: 100 * multiplier
+            })
+        );
+        set!(
+            ctx.world,
+            (BuildPrice {
+                map_id: 1,
+                build_type: 4,
+                gold: 100 * multiplier,
+                food: 100 * multiplier,
+                iron: 100 * multiplier
+            })
+        );
+        set!(
+            ctx.world,
+            (BuildPrice {
+                map_id: 1,
+                build_type: 5,
+                gold: 100 * multiplier,
+                food: 100 * multiplier,
+                iron: 100 * multiplier
+            })
+        );
 
         emit!(ctx.world, MapInited { map_id: 1, MAX_MAP_X: max_map_x, MAX_MAP_Y: max_map_y });
 

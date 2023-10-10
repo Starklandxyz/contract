@@ -20,11 +20,12 @@ mod claim_mining {
     fn execute(ctx: Context, map_id: u64, xs: Array<u64>, ys: Array<u64>) {
         assert(xs.len() == ys.len(), 'wrong index');
         let time_now: u64 = starknet::get_block_timestamp();
-        let len = xs.len();
+        
         let mut index = 0;
+        let len = xs.len();
         loop {
-            let x = *xs.at(index);
-            let y = *ys.at(index);
+            let x:u64 = *xs.at(index);
+            let y:u64 = *ys.at(index);
             let land = get!(ctx.world, (map_id, x, y), Land);
             assert(land.owner == ctx.origin, 'not owner');
 
@@ -34,20 +35,19 @@ mod claim_mining {
 
             if (land_mining.start_time != 0) {
                 let total_time = time_now - land_mining.start_time;
-                let hours: u64 = total_time / 3600;
                 if (land.building == building_config.Build_Type_Farmland) {
-                    let reward = hours * mining_config.Food_Speed;
-                    let mut food = get!(ctx.world,(map_id,ctx.origin),Food);
+                    let reward = total_time * mining_config.Food_Speed;
+                    let mut food = get!(ctx.world, (map_id, ctx.origin), Food);
                     food.balance = food.balance + reward;
                     set!(ctx.world, (food));
                 } else if (land.building == building_config.Build_Type_IronMine) {
-                    let reward = hours * mining_config.Iron_Speed;
-                    let mut iron = get!(ctx.world,(map_id,ctx.origin),Iron);
+                    let reward = total_time * mining_config.Iron_Speed;
+                    let mut iron = get!(ctx.world, (map_id, ctx.origin), Iron);
                     iron.balance = iron.balance + reward;
                     set!(ctx.world, (iron));
                 } else if (land.building == building_config.Build_Type_GoldMine) {
-                    let reward = hours * mining_config.Gold_Speed;
-                    let mut gold = get!(ctx.world,(map_id,ctx.origin),Gold);
+                    let reward = total_time * mining_config.Gold_Speed;
+                    let mut gold = get!(ctx.world, (map_id, ctx.origin), Gold);
                     gold.balance = gold.balance + reward;
                     set!(ctx.world, (gold));
                 }
@@ -62,7 +62,5 @@ mod claim_mining {
         };
         return ();
     }
-// fn claim(ctx: Context, map_id: u64, x: u64, y: u64,building:u64) {
 
-// }
 }
