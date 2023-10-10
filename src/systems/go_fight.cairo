@@ -12,7 +12,6 @@ mod go_fight {
     use stark_land::components::warrior_config::WarriorConfig;
     use stark_land::components::build_config::BuildConfig;
 
-
     use stark_land::components::troop::Troop;
     use stark_land::components::troop::TroopImpl;
 
@@ -21,6 +20,8 @@ mod go_fight {
 
     use stark_land::utils::random::random;
     use starknet::ContractAddress;
+
+    use debug::PrintTrait;
 
     fn execute(ctx: Context, map_id: u64, troop_index: u64) {
         // 根据MapId 获取地址，已经获取到对方玩家信息、计算双方人数、时间复杂度最少
@@ -39,6 +40,8 @@ mod go_fight {
 
         // 没到达
         assert((time_now - troop.start_time) > total_time, 'not reached, can not fight');
+
+        assert(troop.balance > 0, 'no balance, can not fight');
 
         let mut land = get!(ctx.world, (map_id, troop.to_x, troop.to_y), Land);
 
@@ -65,7 +68,7 @@ mod go_fight {
         }
 
         // x 人数、y 人数，y 实际攻击力是 y * 1.3、
-        // 胜率是 x = x / 1.3*y + x , x 损失人数是 [0，（1 -（ x / 1.3*y + x]  的随机值 * x 
+        // 胜率是 x = x / 1.3*y + x , x 损失人数是 [0，（1 -（ x / 1.3*y + x]  的随机值 * x
         // 胜率是 y = 1.3*y / 1.3*y + x , x 损失人数是 [0,（1 -（ y / 1.3*y + x）* y]  的随机值 * y
         // 胜率高 伤亡人数少
 
@@ -77,43 +80,58 @@ mod go_fight {
             / (actual_attack_power_y
                 + x * 100); // x 放大 10000 和胜负率.类似、结果是 0 - 100
 
-        let r1: u128 = random(x * 99 + y + map_id * 17) % 100_u128 + 1_u128;
+        let xr1: u128 = random(x * 99 + y + map_id * 17) % 100_u128 + 1_u128;
 
-        let r2: u64 = r1.try_into().unwrap();
+        let xr2: u64 = xr1.try_into().unwrap();
 
-        let random_loss_x: u64 = r2 * (100  - win_rate_x) / 100;
+        let yr1: u128 = random(x * 99 + y + map_id * 17) % 100_u128 + 1_u128;
 
-        let win_rate_y: u64 = actual_attack_power_y * 100  / (actual_attack_power_y + x * 100) ;
+        let yr2: u64 = yr1.try_into().unwrap();
 
-        let random_loss_y: u64 = r2 * (100  - win_rate_y) /100 ; // 1-100 \ 因为胜率越高，伤亡越少，即取余数的 被余数 越小，结果也偏小
+        let mut random_loss_x: u64 = x * xr2 * (100  - win_rate_x) / 10000;
 
-        // 更新双方人员数据 
+        let win_rate_y: u64 = 100 - win_rate_x;
 
-        x = if x > random_loss_x {
-             x - random_loss_x
-            } else {
-             x - 1
-        };
+        let mut random_loss_y: u64 = y * yr2 * (100  - win_rate_y) / 10000;  // 1-100 \ 因为胜率越高，伤亡越少，即取余数的 被余数 越小，结果也偏小
 
-         y = if y > random_loss_y {
-             y - random_loss_y
-            } else {
-             y - 1
-        };
+        if(random_loss_x==0){
+        random_loss_x = 1;
+        }
 
+        if(random_loss_y==0){
+        random_loss_y =1;
+        }
+
+        // 更新双方人员数据
+        x.print();
+        y.print();
+
+        random_loss_x.print();
+
+        random_loss_y.print();
+
+        x = x - random_loss_x;
+
+        y = y - random_loss_y;
+
+        troop.balance = x;
+
+        random_loss_x.print();
+        random_loss_y.print();
 
         // 一轮结束，谁剩下人数多就赢
 
         if (x > y) {
             land.owner = troop.owner;
             let mut warrior = get!(ctx.world, (map_id, troop.to_x, troop.to_y), Warrior);
+
             warrior.balance = x;
 
             let mut user_warrior = get!(ctx.world, (map_id, ctx.origin), UserWarrior);
             user_warrior.balance = user_warrior.balance - random_loss_x;
 
             // 更新土地 士兵信息
-            set!(ctx.world, (warrior, land, user_warrior));
+            set!(ctx.world, (warrior, land, user_warrior, troop));
 
             if (isLand_None == 1) {// 如果是无主指定，更新owner \ 士兵 已经完成
 
@@ -130,15 +148,15 @@ mod go_fight {
             }
         } else {
             // 人数加回基地
-            let mut warrior = get!(ctx.world, (map_id, troop.from_x, troop.from_y), Warrior);
             // 返回人数
-            warrior.balance = warrior.balance + x;
-
             let mut user_warrior = get!(ctx.world, (map_id, ctx.origin), UserWarrior);
-            // 更新人数、扣减伤亡人数
-            user_warrior.balance = 1;
 
-            set!(ctx.world, (warrior, user_warrior));
+            let mut balance = user_warrior.balance;
+            balance.print();
+            // 更新人数、扣减伤亡人数
+            user_warrior.balance = balance - random_loss_x;
+
+            set!(ctx.world, (user_warrior,troop));
 
             if (isLand_None == 1) {// 如果是无主指定，更新owner \ 士兵 已经完成
 
