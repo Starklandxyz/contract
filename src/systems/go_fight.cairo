@@ -51,11 +51,10 @@ mod go_fight {
 
         let owner = land.owner;
 
+        let mut y_warrior = get!(ctx.world, (map_id, troop.to_x, troop.to_y), Warrior);
+
         if (!owner.is_zero()) {
             assert(land.owner == ctx.origin, 'your land can not fight');
-
-            let mut y_warrior = get!(ctx.world, (map_id, troop.to_x, troop.to_y), Warrior);
-
             // 获取士兵
             y = y_warrior.balance;
         } else {
@@ -115,8 +114,6 @@ mod go_fight {
                 // 敌人回家、更新敌人基地人数、更新敌人兵团人数
                 let base = get!(ctx.world, (map_id, y_address), Base);
 
-                let mut y_warrior = get!(ctx.world, (map_id, base.x, base.y), Warrior);
-
                 y_warrior.balance = y_warrior.balance + y;
 
                 let mut user_warrior = get!(ctx.world, (map_id, y_address), UserWarrior);
@@ -136,9 +133,6 @@ mod go_fight {
             user_warrior.balance = user_warrior.balance - random_loss_x;
 
             set!(ctx.world, (warrior, user_warrior));
-
-            // 更新 敌方数据
-            let mut y_warrior = get!(ctx.world, (map_id, troop.to_x, troop.to_y), Warrior);
 
             // 剩下的人数更新
             y_warrior.balance = y;
