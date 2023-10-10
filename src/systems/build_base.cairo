@@ -25,8 +25,6 @@ mod build_base {
         assert(base.x == 0 && base.y == 0, 'you have base');
         set!(ctx.world, (Base { map_id: map_id, owner: ctx.origin, x: x, y: y },));
 
-        set!(ctx.world, (LandMining { map_id: map_id, x: x, y: y, start_time: time_now },));
-
         set!(
             ctx.world,
             (Land { map_id: map_id, x: x, y: y, owner: ctx.origin, building: 1, level: 1 },)
@@ -43,6 +41,11 @@ mod build_base {
             ctx.world,
             (Land { map_id: map_id, x: x + 1, y: y + 1, owner: ctx.origin, building: 1, level: 1 },)
         );
+
+        // set!(ctx.world, (LandMining { map_id: map_id, x: x, y: y, start_time: time_now },));
+        let mut land_mining = get!(ctx.world,(map_id,x,y),LandMining);
+        land_mining.start_time = time_now;
+        set!(ctx.world, (land_mining));
         return ();
     }
 
