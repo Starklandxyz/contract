@@ -28,6 +28,10 @@ mod enter_land {
 
         let mut troop = get!(ctx.world,(map_id,ctx.origin,troop_index),Troop);
         assert(troop.start_time!=0, 'no troop');
+        
+        let total_time = troop.distance * config.Troop_Speed;
+        assert((time_now - troop.start_time) > total_time, 'not reached, can not fight');
+
         troop.start_time = 0;
         troop.retreat = false;
 
