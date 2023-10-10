@@ -23,6 +23,11 @@ mod claim_mining {
         
         let mut index = 0;
         let len = xs.len();
+        let mut add_gold = 0;
+        let mut add_iron = 0;
+        let mut add_food = 0;
+        let building_config = get!(ctx.world, map_id, BuildConfig);
+        let mining_config = get!(ctx.world, map_id, MiningConfig);
         loop {
             let x:u64 = *xs.at(index);
             let y:u64 = *ys.at(index);
@@ -30,26 +35,21 @@ mod claim_mining {
             assert(land.owner == ctx.origin, 'not owner');
 
             let mut land_mining = get!(ctx.world, (map_id, x, y), LandMining);
-            let building_config = get!(ctx.world, map_id, BuildConfig);
-            let mining_config = get!(ctx.world, map_id, MiningConfig);
 
             if (land_mining.start_time != 0) {
                 let total_time = time_now - land_mining.start_time;
                 if (land.building == building_config.Build_Type_Farmland) {
                     let reward = total_time * mining_config.Food_Speed;
-                    let mut food = get!(ctx.world, (map_id, ctx.origin), Food);
-                    food.balance = food.balance + reward;
-                    set!(ctx.world, (food));
+                    add_food += reward; 
                 } else if (land.building == building_config.Build_Type_IronMine) {
                     let reward = total_time * mining_config.Iron_Speed;
-                    let mut iron = get!(ctx.world, (map_id, ctx.origin), Iron);
-                    iron.balance = iron.balance + reward;
-                    set!(ctx.world, (iron));
+                    add_iron += reward; 
                 } else if (land.building == building_config.Build_Type_GoldMine) {
                     let reward = total_time * mining_config.Gold_Speed;
-                    let mut gold = get!(ctx.world, (map_id, ctx.origin), Gold);
-                    gold.balance = gold.balance + reward;
-                    set!(ctx.world, (gold));
+                    add_gold += reward; 
+                }else if (land.building == building_config.Build_Type_Base) {
+                    let reward = total_time * mining_config.Base_Gold_Speed;
+                    add_gold += reward;
                 }
                 land_mining.start_time = time_now;
                 set!(ctx.world, (land_mining));
@@ -60,6 +60,22 @@ mod claim_mining {
                 break ();
             };
         };
+        if(add_food != 0){
+            let mut food = get!(ctx.world, (map_id, ctx.origin), Food);
+            food.balance = food.balance + add_food;
+            set!(ctx.world, (food));
+        }
+
+        if(add_iron!=0){
+            let mut iron = get!(ctx.world, (map_id, ctx.origin), Iron);
+            iron.balance = iron.balance + add_iron;
+            set!(ctx.world, (iron));
+        }
+        if(add_gold!=0){
+            let mut gold = get!(ctx.world, (map_id, ctx.origin), Gold);
+            gold.balance = gold.balance + add_gold;
+            set!(ctx.world, (gold));
+        }
         return ();
     }
 

@@ -7,4 +7,6 @@ struct MiningConfig {
     Food_Speed: u64,
     Iron_Speed: u64,
     Gold_Speed: u64,
+
+    Base_Gold_Speed:u64,
 }

@@ -11,13 +11,13 @@ mod admin {
 
     fn execute(ctx: Context, map_id: u64) {
         let mut gold = get!(ctx.world, (map_id, ctx.origin), Gold);
-        gold.balance = gold.balance + 1000*1_000_000;
+        gold.balance = gold.balance + 100*1_000_000;
 
         let mut iron = get!(ctx.world, (map_id, ctx.origin), Iron);
-        iron.balance = iron.balance + 1000*1_000_000;
+        iron.balance = iron.balance + 100*1_000_000;
 
         let mut food = get!(ctx.world, (map_id, ctx.origin), Food);
-        food.balance = food.balance + 1000*1_000_000;
+        food.balance = food.balance + 100*1_000_000;
 
         set!(ctx.world, (gold, iron, food));
         return ();

@@ -3,7 +3,7 @@ mod spawn;
 mod build_base;
 mod train_warrior;
 mod take_warrior;
-mod admin;
+mod airdrop;
 mod send_troop;
 mod retreat_troop;
 mod enter_land;

@@ -62,6 +62,7 @@ mod init {
                 Food_Speed: multiplier / 10, //0.1 per sec
                 Gold_Speed: multiplier / 10, //
                 Iron_Speed: multiplier / 10, //
+                Base_Gold_Speed: multiplier / 10,
             })
         );
         set!(
