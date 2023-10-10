@@ -27,7 +27,7 @@ mod claim_mining {
             let y = *ys.at(index);
             let land = get!(ctx.world, (map_id, x, y), Land);
             assert(land.owner == ctx.origin, 'not owner');
-            // claim(ctx,map_id,x,y,land.building);
+
             let mut land_mining = get!(ctx.world, (map_id, x, y), LandMining);
             let building_config = get!(ctx.world, map_id, BuildConfig);
             let mining_config = get!(ctx.world, map_id, MiningConfig);

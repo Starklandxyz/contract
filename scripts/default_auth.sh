@@ -61,6 +61,8 @@ sozo auth writer Food claim_mining --world $WORLD_ADDRESS
 sozo auth writer Gold claim_mining --world $WORLD_ADDRESS
 sozo auth writer Iron claim_mining --world $WORLD_ADDRESS
 
+sozo auth writer Land admin_attack --world $WORLD_ADDRESS
+
 sozo execute init --world $WORLD_ADDRESS
 
 echo "Default authorizations have been successfully set."

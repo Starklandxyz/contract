@@ -28,7 +28,7 @@ mod build_building {
         let mut land = get!(ctx.world, (map_id, x, y), Land);
         assert(LandTrait::land_property(map_id, x, y) >= build_config.Land_None, 'can not build');
         assert(land.building == 0, 'has building');
-        // assert(land.owner == ctx.origin, 'not yours');
+        assert(land.owner == ctx.origin, 'not yours');
 
         let mut land_cost = get!(ctx.world,(map_id,x,y),LandCost);
         
