@@ -69,6 +69,16 @@ mod init {
             ctx.world,
             (BuildPrice {
                 map_id: 1,
+                build_type: 1,
+                gold: 100 * multiplier,
+                food: 100 * multiplier,
+                iron: 100 * multiplier
+            })
+        );
+        set!(
+            ctx.world,
+            (BuildPrice {
+                map_id: 1,
                 build_type: 2,
                 gold: 100 * multiplier,
                 food: 100 * multiplier,
