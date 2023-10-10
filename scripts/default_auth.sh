@@ -36,6 +36,8 @@ sozo auth writer Food airdrop --world $WORLD_ADDRESS
 sozo auth writer Gold airdrop --world $WORLD_ADDRESS
 sozo auth writer Iron airdrop --world $WORLD_ADDRESS
 sozo auth writer Airdrop airdrop --world $WORLD_ADDRESS
+sozo auth writer UserWarrior airdrop --world $WORLD_ADDRESS
+sozo auth writer Warrior airdrop --world $WORLD_ADDRESS
 
 sozo auth writer Food send_troop --world $WORLD_ADDRESS
 sozo auth writer Troop send_troop --world $WORLD_ADDRESS
