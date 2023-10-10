@@ -24,22 +24,32 @@ mod upgrade_building {
         assert(base.x != 0 && base.y != 0, 'you have no base');
         let build_config = get!(ctx.world, map_id, BuildConfig);
 
-        let mut land = get!(ctx.world, (map_id, x, y), Land);
-        assert(LandTrait::land_property(map_id, x, y) >= build_config.Land_None, 'can not build');
-        //assert(land.building != 0, 'have no building');
-        assert((land.building >=2) && (land.building <=5), 'illegal build_type');
-        assert((land.building >= build_config.Build_Type_Farmland) && 
-        (land.building <= build_config.Build_Type_Camp), 'illegal build_type');
+        let mut upgrade_x = x;
+        let mut upgrade_y = y;
+        let mut land = get!(ctx.world, (map_id, upgrade_x, upgrade_y), Land);
+
+        //如果传入的坐标是 Base, 就对坐标进行修正
+        if(land.building == build_config.Build_Type_Base){
+            upgrade_x = base.x;
+            upgrade_y = base.y;
+        }
+        land = get!(ctx.world, (map_id, upgrade_x, upgrade_y), Land);
+
+        assert(LandTrait::land_property(map_id, upgrade_x, upgrade_y) >= build_config.Land_None, 'can not build');
+        assert(land.building != 0, 'have no building');
         assert(land.owner == ctx.origin, 'not yours');
 
 
         // 建设当前地块的累计成本
-        let mut land_cost = get!(ctx.world,(map_id,x,y),LandCost);
-
+        let mut land_cost = get!(ctx.world,(map_id,upgrade_x, upgrade_y),LandCost);
 
         let build_price = get!(ctx.world,(map_id, land.building),BuildPrice);
+        assert(
+            build_price.food != 0 || build_price.gold != 0 || build_price.iron != 0, 'illegal upgrade'
+        );
+
         // 当前地块的等级
-        let current_level = land.level;
+        let  current_level = land.level;
         // 升级所需的资源为 = 建设单价 * 下一等级
         let food_need = build_price.food * (current_level + 1);
 
@@ -61,7 +71,6 @@ mod upgrade_building {
         land_cost.cost_gold = land_cost.cost_gold + gold_need;
 
         land.level = current_level + 1;
-
 
         set!(ctx.world, (land,land_cost,food,iron,gold));
         return ();
