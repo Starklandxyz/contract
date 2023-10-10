@@ -6,6 +6,7 @@ mod init {
     use stark_land::components::warrior_config::WarriorConfig;
     use stark_land::components::build_config::BuildConfig;
     use stark_land::components::build_price::BuildPrice;
+    use stark_land::components::mining_config::MiningConfig;
 
     #[event]
     use stark_land::events::inited::{Event, MapInited};
@@ -44,6 +45,15 @@ mod init {
                 Build_Type_IronMine: 3,
                 Build_Type_GoldMine: 4,
                 Build_Type_Camp: 5,
+            })
+        );
+        set!(
+            ctx.world,
+            (MiningConfig {
+                map_id: 1,
+                Food_Speed: 1000, 
+                Gold_Speed: 1000, 
+                Iron_Speed: 1000, 
             })
         );
         set!(ctx.world, (BuildPrice { map_id: 1, build_type: 2, gold: 100, food: 100, iron: 100 }));

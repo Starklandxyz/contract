@@ -1,0 +1,68 @@
+#[system]
+mod claim_mining {
+    use array::ArrayTrait;
+    use box::BoxTrait;
+    use traits::{Into, TryInto};
+    use option::OptionTrait;
+    use dojo::world::Context;
+
+    use stark_land::components::global_config::GlobalConfig;
+    use stark_land::components::build_config::BuildConfig;
+    use stark_land::components::food::Food;
+    use stark_land::components::gold::Gold;
+    use stark_land::components::iron::Iron;
+    use stark_land::components::base::Base;
+    use stark_land::components::land::Land;
+    use stark_land::components::land::LandTrait;
+    use stark_land::components::land_mining::LandMining;
+    use stark_land::components::mining_config::MiningConfig;
+
+    fn execute(ctx: Context, map_id: u64, xs: Array<u64>, ys: Array<u64>) {
+        assert(xs.len() == ys.len(), 'wrong index');
+        let time_now: u64 = starknet::get_block_timestamp();
+        let len = xs.len();
+        let mut index = 0;
+        loop {
+            let x = *xs.at(index);
+            let y = *ys.at(index);
+            let land = get!(ctx.world, (map_id, x, y), Land);
+            assert(land.owner == ctx.origin, 'not owner');
+            // claim(ctx,map_id,x,y,land.building);
+            let mut land_mining = get!(ctx.world, (map_id, x, y), LandMining);
+            let building_config = get!(ctx.world, map_id, BuildConfig);
+            let mining_config = get!(ctx.world, map_id, MiningConfig);
+
+            if (land_mining.start_time != 0) {
+                let total_time = time_now - land_mining.start_time;
+                let hours: u64 = total_time / 3600;
+                if (land.building == building_config.Build_Type_Farmland) {
+                    let reward = hours * mining_config.Food_Speed;
+                    let mut food = get!(ctx.world,(map_id,ctx.origin),Food);
+                    food.balance = food.balance + reward;
+                    set!(ctx.world, (food));
+                } else if (land.building == building_config.Build_Type_IronMine) {
+                    let reward = hours * mining_config.Iron_Speed;
+                    let mut iron = get!(ctx.world,(map_id,ctx.origin),Iron);
+                    iron.balance = iron.balance + reward;
+                    set!(ctx.world, (iron));
+                } else if (land.building == building_config.Build_Type_GoldMine) {
+                    let reward = hours * mining_config.Gold_Speed;
+                    let mut gold = get!(ctx.world,(map_id,ctx.origin),Gold);
+                    gold.balance = gold.balance + reward;
+                    set!(ctx.world, (gold));
+                }
+                land_mining.start_time = time_now;
+                set!(ctx.world, (land_mining));
+            }
+
+            index += 1;
+            if (index == len) {
+                break ();
+            };
+        };
+        return ();
+    }
+// fn claim(ctx: Context, map_id: u64, x: u64, y: u64,building:u64) {
+
+// }
+}
