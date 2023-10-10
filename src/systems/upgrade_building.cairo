@@ -22,24 +22,22 @@ mod upgrade_building {
         // assert(check_can_build_base(ctx, map_id, x, y), 'can not build here');
         let base = get!(ctx.world, (map_id, ctx.origin), Base);
         assert(base.x != 0 && base.y != 0, 'you have no base');
-
         let build_config = get!(ctx.world, map_id, BuildConfig);
 
         let mut land = get!(ctx.world, (map_id, x, y), Land);
         assert(LandTrait::land_property(map_id, x, y) >= build_config.Land_None, 'can not build');
         //assert(land.building != 0, 'have no building');
-        // assert((land.building >=2) && (land.building <=5), 'illegal build_type');
-        // assert((land.building >= build_config.Build_Type_Farmland) && 
-        // (land.building <= build_config.Build_Type_Camp), 'illegal build_type');
+        assert((land.building >=2) && (land.building <=5), 'illegal build_type');
+        assert((land.building >= build_config.Build_Type_Farmland) && 
+        (land.building <= build_config.Build_Type_Camp), 'illegal build_type');
         assert(land.owner == ctx.origin, 'not yours');
+
+
         // 建设当前地块的累计成本
-        let mut land_cost = get!(ctx.world, (map_id, x, y), LandCost);
+        let mut land_cost = get!(ctx.world,(map_id,x,y),LandCost);
 
-        let build_price = get!(ctx.world, (map_id, land.building), BuildPrice);
-        assert(
-            build_price.food != 0 || build_price.gold != 0 || build_price.iron != 0, 'wrong build'
-        );
 
+        let build_price = get!(ctx.world,(map_id, land.building),BuildPrice);
         // 当前地块的等级
         let current_level = land.level;
         // 升级所需的资源为 = 建设单价 * 下一等级
@@ -64,7 +62,8 @@ mod upgrade_building {
 
         land.level = current_level + 1;
 
-        set!(ctx.world, (land, land_cost, food, iron, gold));
+
+        set!(ctx.world, (land,land_cost,food,iron,gold));
         return ();
     }
 }
