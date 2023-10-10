@@ -17,6 +17,7 @@ mod upgrade_building {
     use stark_land::components::land::Land;
     use stark_land::components::land::LandTrait;
     use stark_land::components::land_cost::LandCost;
+    use stark_land::components::upgrade_cost::UpgradeCost;
 
     fn execute(ctx: Context, map_id: u64, x: u64, y: u64) {
         // assert(check_can_build_base(ctx, map_id, x, y), 'can not build here');
@@ -39,6 +40,14 @@ mod upgrade_building {
         assert(land.building != 0, 'have no building');
         assert(land.owner == ctx.origin, 'not yours');
 
+        // 判断建筑物是否正在升级
+        let time_now: u64 = starknet::get_block_timestamp();
+        let mut upgrade_cost = get!(ctx.world,(map_id,upgrade_x, upgrade_y),UpgradeCost);
+        assert(time_now >= upgrade_cost.end_time, 'building are upgrading');
+        assert(upgrade_cost.claimed || upgrade_cost.end_time==0, 
+        'claim targrt_level first ');//如果上一次的级别已经claim，或是首次升级
+        upgrade_cost.start_time = time_now;
+        upgrade_cost.claimed = false;
 
         // 建设当前地块的累计成本
         let mut land_cost = get!(ctx.world,(map_id,upgrade_x, upgrade_y),LandCost);
@@ -52,6 +61,9 @@ mod upgrade_building {
         let  current_level = land.level;
         // 升级所需的资源为 = 建设单价 * 下一等级
         let food_need = build_price.food * (current_level + 1);
+        // 升级所需的时间为 单位时间 * 下一等级
+        let unit_time = 100;
+        upgrade_cost.end_time = time_now + unit_time * (current_level + 1);
 
         let mut food = get!(ctx.world, (map_id, ctx.origin), Food);
         assert(food.balance >= food_need, 'food not enough');
@@ -70,9 +82,10 @@ mod upgrade_building {
         gold.balance = gold.balance - gold_need;
         land_cost.cost_gold = land_cost.cost_gold + gold_need;
 
-        land.level = current_level + 1;
-
-        set!(ctx.world, (land,land_cost,food,iron,gold));
+        //land.level = current_level + 1;
+        // 将升级后的等级暂存于 upgrade_cost
+        upgrade_cost.target_level = current_level + 1;
+        set!(ctx.world, (upgrade_cost,land_cost,food,iron,gold));
         return ();
     }
 }

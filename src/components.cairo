@@ -19,3 +19,4 @@ mod land_mining;
 mod fight;
 mod mining_config;
 mod airdrop;
+mod upgrade_cost;

@@ -67,11 +67,14 @@ sozo auth writer Food claim_mining --world $WORLD_ADDRESS
 sozo auth writer Gold claim_mining --world $WORLD_ADDRESS
 sozo auth writer Iron claim_mining --world $WORLD_ADDRESS
 
-sozo auth writer Land upgrade_building --world $WORLD_ADDRESS
 sozo auth writer LandCost upgrade_building --world $WORLD_ADDRESS
+sozo auth writer UpgradeCost upgrade_building --world $WORLD_ADDRESS
 sozo auth writer Gold upgrade_building --world $WORLD_ADDRESS
 sozo auth writer Food upgrade_building --world $WORLD_ADDRESS
 sozo auth writer Iron upgrade_building --world $WORLD_ADDRESS
+
+sozo auth writer Land upgrade_compleate --world $WORLD_ADDRESS
+sozo auth writer UpgradeCost upgrade_compleate --world $WORLD_ADDRESS
 
 sozo auth writer Land admin_attack --world $WORLD_ADDRESS
 
