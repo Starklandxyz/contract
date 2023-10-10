@@ -77,22 +77,30 @@ mod go_fight {
             / (actual_attack_power_y
                 + x * 100); // x 放大 10000 和胜负率.类似、结果是 0 - 100
 
-        let r1: u128 = random(x * 99 + y + map_id * 17) + 1_u128;
+        let r1: u128 = random(x * 99 + y + map_id * 17) % 100_u128 + 1_u128;
 
         let r2: u64 = r1.try_into().unwrap();
 
-        let random_loss_x: u64 = r2 % (100 - win_rate_x); // 1-100
+        let random_loss_x: u64 = r2 * (100  - win_rate_x) / 100;
 
-        let win_rate_y: u64 = actual_attack_power_y * 10000 / (actual_attack_power_y + x * 100);
+        let win_rate_y: u64 = actual_attack_power_y * 100  / (actual_attack_power_y + x * 100) ;
 
-        let random_loss_y: u64 = r2 % (100
-            - win_rate_y); // 1-100 \ 因为胜率越高，伤亡越少，即取余数的 被余数 越小，结果也偏小
+        let random_loss_y: u64 = r2 * (100  - win_rate_y) /100 ; // 1-100 \ 因为胜率越高，伤亡越少，即取余数的 被余数 越小，结果也偏小
 
         // 更新双方人员数据 
 
-        x = x - random_loss_x;
+        x = if x > random_loss_x {
+             x - random_loss_x
+            } else {
+             x - 1
+        };
 
-        y = y - random_loss_y;
+         y = if y > random_loss_y {
+             y - random_loss_y
+            } else {
+             y - 1
+        };
+
 
         // 一轮结束，谁剩下人数多就赢
 
@@ -102,13 +110,13 @@ mod go_fight {
             warrior.balance = x;
 
             let mut user_warrior = get!(ctx.world, (map_id, ctx.origin), UserWarrior);
-            let user_balance: u64 = user_warrior.balance;
-            user_warrior.balance = user_balance - random_loss_x;
+            user_warrior.balance = user_warrior.balance - random_loss_x;
 
             // 更新土地 士兵信息
             set!(ctx.world, (warrior, land, user_warrior));
 
             if (isLand_None == 1) {// 如果是无主指定，更新owner \ 士兵 已经完成
+
 
             } else {
                 // 敌人回家、更新敌人基地人数、更新敌人兵团人数
@@ -128,9 +136,14 @@ mod go_fight {
 
             let mut user_warrior = get!(ctx.world, (map_id, ctx.origin), UserWarrior);
             // 更新人数、扣减伤亡人数
-            user_warrior.balance = user_warrior.balance - random_loss_x;
+            user_warrior.balance = 1;
 
             set!(ctx.world, (warrior, user_warrior));
+
+            if (isLand_None == 1) {// 如果是无主指定，更新owner \ 士兵 已经完成
+
+
+            } else {
 
             // 剩下的人数更新
             y_warrior.balance = y;
@@ -140,8 +153,11 @@ mod go_fight {
             y_user_warrior.balance = y_user_warrior.balance - random_loss_y;
 
             set!(ctx.world, (y_warrior, y_user_warrior));
+
+            }
         }
 
         return ();
     }
 }
+
