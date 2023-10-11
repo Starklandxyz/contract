@@ -12,6 +12,7 @@ mod airdrop {
     use stark_land::components::airdrop_config::AirdropConfig;
     use stark_land::components::troop::Troop;
     use stark_land::components::land::Land;
+    use stark_land::components::land::LandTrait;
     use stark_land::components::build_config::BuildConfig;
 
     fn execute(ctx: Context, map_id: u64, index: u64, x: u64, y: u64) {
@@ -32,9 +33,9 @@ mod airdrop {
         //修建基地
         if (index == 1) {
             assert(base.x != 0, 'no base');
-        } //拥有15个士兵
+        } //拥有20个士兵
         else if (index == 2) {
-            assert(user_warrior.balance >= 15, 'no enough warrior');
+            assert(user_warrior.balance >= 20, 'no enough warrior');
         } //拥有1个Troop
         else if (index == 3) {
             let troop1 = get!(ctx.world, (map_id, ctx.origin, 1), Troop);
@@ -43,26 +44,33 @@ mod airdrop {
             if (troop1.start_time + troop2.start_time + troop3.start_time == 0) {
                 panic_with_felt252('no troop');
             }
-        } //拥有第一个farmland
+        }//拥有第一个land
         else if (index == 4) {
+            let land = get!(ctx.world, (map_id, x, y), Land);
+            assert(land.owner == ctx.origin, 'not your land');
+            let config = get!(ctx.world, (map_id), BuildConfig);
+            assert(land.building != config.Build_Type_Base, 'not land');
+        } 
+        //拥有第一个farmland
+        else if (index == 5) {
             let land = get!(ctx.world, (map_id, x, y), Land);
             assert(land.owner == ctx.origin, 'not your land');
             let config = get!(ctx.world, (map_id), BuildConfig);
             assert(land.building == config.Build_Type_Farmland, 'not farmland');
         } //拥有第一个goldmine
-        else if (index == 5) {
+        else if (index == 6) {
             let land = get!(ctx.world, (map_id, x, y), Land);
             assert(land.owner == ctx.origin, 'not your land');
             let config = get!(ctx.world, (map_id), BuildConfig);
             assert(land.building == config.Build_Type_GoldMine, 'not goldmine');
         } //拥有第一个ironmine
-        else if (index == 6) {
+        else if (index == 7) {
             let land = get!(ctx.world, (map_id, x, y), Land);
             assert(land.owner == ctx.origin, 'not your land');
             let config = get!(ctx.world, (map_id), BuildConfig);
             assert(land.building == config.Build_Type_IronMine, 'not ironmine');
         } //拥有第一个camp
-        else if (index == 7) {
+        else if (index == 8) {
             let land = get!(ctx.world, (map_id, x, y), Land);
             assert(land.owner == ctx.origin, 'not your land');
             let config = get!(ctx.world, (map_id), BuildConfig);
