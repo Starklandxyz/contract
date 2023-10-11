@@ -7,6 +7,7 @@ mod init {
     use stark_land::components::build_config::BuildConfig;
     use stark_land::components::build_price::BuildPrice;
     use stark_land::components::mining_config::MiningConfig;
+    use stark_land::components::airdrop_config::AirdropConfig;
 
     #[event]
     use stark_land::events::inited::{Event, MapInited};
@@ -59,10 +60,10 @@ mod init {
             ctx.world,
             (MiningConfig {
                 map_id: 1,
-                Food_Speed: multiplier / 1, // 1.0 per sec
-                Gold_Speed: multiplier / 1, //
-                Iron_Speed: multiplier / 1, //
-                Base_Gold_Speed: multiplier / 1,
+                Food_Speed: multiplier / 5, // 0.2 per sec
+                Gold_Speed: multiplier / 5, //
+                Iron_Speed: multiplier / 5, //
+                Base_Gold_Speed: multiplier / 5,
             })
         );
         set!(
@@ -118,6 +119,83 @@ mod init {
 
         emit!(ctx.world, MapInited { map_id: 1, MAX_MAP_X: max_map_x, MAX_MAP_Y: max_map_y });
 
+        set!(
+            ctx.world,
+            (AirdropConfig {
+                map_id: 1,
+                index: 1,
+                reward_warrior: 10,
+                reward_food: 4000 * multiplier,
+                reward_gold: 500 * multiplier,
+                reward_iron: 500 * multiplier
+            })
+        );
+        set!(
+            ctx.world,
+            (AirdropConfig {
+                map_id: 1,
+                index: 2,
+                reward_warrior: 0,
+                reward_food: 2000 * multiplier,
+                reward_gold: 500 * multiplier,
+                reward_iron: 500 * multiplier
+            })
+        );
+        set!(
+            ctx.world,
+            (AirdropConfig {
+                map_id: 1,
+                index: 3,
+                reward_warrior: 10,
+                reward_food: 2000 * multiplier,
+                reward_gold: 200 * multiplier,
+                reward_iron: 200 * multiplier
+            })
+        );
+        set!(
+            ctx.world,
+            (AirdropConfig {
+                map_id: 1,
+                index: 4,
+                reward_warrior: 0,
+                reward_food: 4000 * multiplier,
+                reward_gold: 200 * multiplier,
+                reward_iron: 200 * multiplier
+            })
+        );
+        set!(
+            ctx.world,
+            (AirdropConfig {
+                map_id: 1,
+                index: 5,
+                reward_warrior: 0,
+                reward_food: 2000 * multiplier,
+                reward_gold: 400 * multiplier,
+                reward_iron: 0 * multiplier
+            })
+        );
+        set!(
+            ctx.world,
+            (AirdropConfig {
+                map_id: 1,
+                index: 6,
+                reward_warrior: 0,
+                reward_food: 2000 * multiplier,
+                reward_gold: 00 * multiplier,
+                reward_iron: 400 * multiplier
+            })
+        );
+        set!(
+            ctx.world,
+            (AirdropConfig {
+                map_id: 1,
+                index: 7,
+                reward_warrior: 20,
+                reward_food: 1000 * multiplier,
+                reward_gold: 100 * multiplier,
+                reward_iron: 100 * multiplier
+            })
+        );
         return ();
     }
 }
