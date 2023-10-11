@@ -5,6 +5,6 @@ struct Gold {
     #[key]
     map_id: u64,
     #[key]
-    id: ContractAddress,
+    owner: ContractAddress,
     balance: u64,
 }

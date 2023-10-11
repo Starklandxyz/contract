@@ -32,7 +32,7 @@ mod test {
     use stark_land::systems::build_base::{build_base};
     use stark_land::systems::train_warrior::{train_warrior};
     use stark_land::systems::take_warrior:: {take_warrior};
-    use stark_land::systems::admin:: {admin};
+    use stark_land::systems::airdrop:: {airdrop};
     
 
     // components   
@@ -51,7 +51,7 @@ mod test {
             build_base::TEST_CLASS_HASH,
             train_warrior::TEST_CLASS_HASH,
             take_warrior::TEST_CLASS_HASH,
-            admin:: TEST_CLASS_HASH,
+            airdrop:: TEST_CLASS_HASH,
         ];
 
         let contract_addr = starknet::contract_address_const::<9>();
@@ -89,8 +89,6 @@ mod test {
         // player.nick_name.print();
         // player.joined_time.print();
 
-        world.execute('admin', array![map_id.into()]);
-
         (world, map_id, player_address)
     }
 
@@ -102,6 +100,8 @@ mod test {
         let build_y: felt252 = 1;
 
         world.execute('build_base', array![map_id, build_x, build_y]);
+        world.execute('airdrop', array![map_id.into()]);
+
         (world, build_x, build_y)
     }
 
@@ -130,6 +130,6 @@ mod test {
     #[available_gas(600000000)]
     // test spawn, build base, airdrop, train warrior
     fn test_start() {
-        train_soliders();
+        create_base();
     }
 }

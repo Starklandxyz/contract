@@ -1,10 +1,13 @@
 use starknet::ContractAddress;
 
 #[derive(Component, Copy, Drop, Serde, SerdeLen)]
-struct Food {
+struct BuildPrice {
     #[key]
-    map_id: u64,
+    map_id:u64,
     #[key]
-    owner: ContractAddress,
-    balance: u64,
+    build_type: u64,
+
+    gold:u64,
+    food:u64,
+    iron:u64
 }

@@ -8,19 +8,22 @@ mod build_base {
 
 
     use stark_land::components::global_config::GlobalConfig;
+    use stark_land::components::build_config::BuildConfig;
     use stark_land::components::player::Player;
     use stark_land::components::base::Base;
     use stark_land::components::land::Land;
     use stark_land::components::land::LandTrait;
+    use stark_land::components::land_mining::LandMining;
 
     fn execute(ctx: Context, map_id: u64, x: u64, y: u64) {
+        let time_now: u64 = starknet::get_block_timestamp();
         let player = get!(ctx.world, ctx.origin, (Player));
         assert(player.joined_time != 0, 'not joined!');
         assert(check_can_build_base(ctx, map_id, x, y), 'can not build here');
 
         let base = get!(ctx.world, (map_id, ctx.origin), Base);
         assert(base.x == 0 && base.y == 0, 'you have base');
-        set!(ctx.world, (Base { map_id: map_id, id: ctx.origin, x: x, y: y },));
+        set!(ctx.world, (Base { map_id: map_id, owner: ctx.origin, x: x, y: y },));
 
         set!(
             ctx.world,
@@ -38,6 +41,11 @@ mod build_base {
             ctx.world,
             (Land { map_id: map_id, x: x + 1, y: y + 1, owner: ctx.origin, building: 1, level: 1 },)
         );
+
+        // set!(ctx.world, (LandMining { map_id: map_id, x: x, y: y, start_time: time_now },));
+        let mut land_mining = get!(ctx.world,(map_id,x,y),LandMining);
+        land_mining.start_time = time_now;
+        set!(ctx.world, (land_mining));
         return ();
     }
 
@@ -64,6 +72,7 @@ mod build_base {
 
     fn check_single_land_buildable(ctx: Context, map_id: u64, x: u64, y: u64) -> bool {
         let config = get!(ctx.world, map_id, (GlobalConfig));
+        let build_config = get!(ctx.world, map_id, BuildConfig);
         if (config.MAX_MAP_X == 0) {
             return false;
         }
@@ -77,7 +86,7 @@ mod build_base {
             return false;
         }
         //是否是不可建设用地
-        if (LandTrait::land_property(map_id, x, y) < 6) {
+        if (LandTrait::land_property(map_id, x, y) < build_config.Land_None) {
             return false;
         }
         true

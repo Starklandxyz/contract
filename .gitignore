@@ -1,1 +1,6 @@
 target
+.idea
+katana_output.txt
+sozo_output.txt
+torii_output.txt
+indexer.db
