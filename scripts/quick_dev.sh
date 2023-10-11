@@ -1,6 +1,7 @@
 #!/bin/bash
 
 pkill -f "katana --disable-fee"
+pkill -f "torii -d indexer.db"
 pkill -f "tee katana_output.txt"
 pkill -f "tee sozo_output.txt"
 pkill -f "tee touch_output.txt"
@@ -16,7 +17,8 @@ done
 echo "正在加入 Scarb.toml 的 #注释..."
 
 # 注释 Scarb.toml 文件的第 22 行
-awk 'NR == 22 {sub("world_address =", "#m world_address =")} 1' Scarb.toml > tmp && mv tmp Scarb.toml
+awk '/world_address/{sub(/.*world_address = /, "# "); print; next} 1' Scarb.toml > Scarb_modified.toml
+
 
 # 异步执行 sozo 命令，将结果同时输出到 sozo_output.txt 和终端
 sozo build 2>&1 | tee sozo_output.txt &
@@ -39,7 +41,7 @@ done
 echo "正在恢复 Scarb.toml 的注释..."
 
 # 取消注释 Scarb.toml 文件的第 22 行
-awk 'NR == 22 {sub("#m world_address =", "world_address =")} 1' Scarb.toml > tmp && mv tmp Scarb.toml
+awk '/world_address/ {sub(/.*world_address = /, "world_address = ");} 1' Scarb.toml > temp.toml && mv temp.toml Scarb.toml
 
 echo "准备创建 indexer db"
 
