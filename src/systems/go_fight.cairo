@@ -88,18 +88,21 @@ mod go_fight {
 
         let yr2: u64 = yr1.try_into().unwrap();
 
-        let mut random_loss_x: u64 = x * xr2 * (100  - win_rate_x) / 10000;
+        let mut random_loss_x: u64 = x * xr2 * (100 - win_rate_x) / 10000;
 
         let win_rate_y: u64 = 100 - win_rate_x;
 
-        let mut random_loss_y: u64 = y * yr2 * (100  - win_rate_y) / 10000;  // 1-100 \ 因为胜率越高，伤亡越少，即取余数的 被余数 越小，结果也偏小
+        let mut random_loss_y: u64 = y
+            * yr2
+            * (100 - win_rate_y)
+            / 10000; // 1-100 \ 因为胜率越高，伤亡越少，即取余数的 被余数 越小，结果也偏小
 
-        if(random_loss_x==0){
-        random_loss_x = 1;
+        if (random_loss_x == 0) {
+            random_loss_x = 1;
         }
 
-        if(random_loss_y==0){
-        random_loss_y =1;
+        if (random_loss_y == 0) {
+            random_loss_y = 1;
         }
 
         // 更新双方人员数据
@@ -133,9 +136,7 @@ mod go_fight {
             // 更新土地 士兵信息
             set!(ctx.world, (warrior, land, user_warrior, troop));
 
-            if (isLand_None == 1) {// 如果是无主指定，更新owner \ 士兵 已经完成
-
-
+            if (isLand_None == 1) { // 如果是无主指定，更新owner \ 士兵 已经完成
             } else {
                 // 敌人回家、更新敌人基地人数、更新敌人兵团人数
                 y_warrior.balance = y_warrior.balance + y;
@@ -156,22 +157,18 @@ mod go_fight {
             // 更新人数、扣减伤亡人数
             user_warrior.balance = balance - random_loss_x;
 
-            set!(ctx.world, (user_warrior,troop));
+            set!(ctx.world, (user_warrior, troop));
 
-            if (isLand_None == 1) {// 如果是无主指定，更新owner \ 士兵 已经完成
-
-
+            if (isLand_None == 1) { // 如果是无主指定，更新owner \ 士兵 已经完成
             } else {
+                // 剩下的人数更新
+                y_warrior.balance = y;
 
-            // 剩下的人数更新
-            y_warrior.balance = y;
+                let mut y_user_warrior = get!(ctx.world, (map_id, y_address), UserWarrior);
 
-            let mut y_user_warrior = get!(ctx.world, (map_id, y_address), UserWarrior);
+                y_user_warrior.balance = y_user_warrior.balance - random_loss_y;
 
-            y_user_warrior.balance = y_user_warrior.balance - random_loss_y;
-
-            set!(ctx.world, (y_warrior, y_user_warrior));
-
+                set!(ctx.world, (y_warrior, y_user_warrior));
             }
         }
 
