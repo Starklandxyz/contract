@@ -72,6 +72,9 @@ mod go_fight {
         // 胜率是 y = 1.3*y / 1.3*y + x , x 损失人数是 [0,（1 -（ y / 1.3*y + x）* y]  的随机值 * y
         // 胜率高 伤亡人数少
 
+        x.print();
+        y.print();
+
         // 扩大 100 倍
         let actual_attack_power_y: u64 = y * 130; // 扩大 100 倍
 
@@ -84,30 +87,19 @@ mod go_fight {
 
         let xr2: u64 = xr1.try_into().unwrap();
 
-        let yr1: u128 = random(x * 99 + y + map_id * 17) % 100_u128 + 1_u128;
+        xr2.print();
 
-        let yr2: u64 = yr1.try_into().unwrap();
+        let mut random_loss_x: u64 = (x * xr2 / 100) *130 / 100;
 
-        let mut random_loss_x: u64 = x * xr2 * (100 - win_rate_x) / 10000;
+        let mut random_loss_y: u64 = y * xr2 / 100;
 
-        let win_rate_y: u64 = 100 - win_rate_x;
-
-        let mut random_loss_y: u64 = y
-            * yr2
-            * (100 - win_rate_y)
-            / 10000; // 1-100 \ 因为胜率越高，伤亡越少，即取余数的 被余数 越小，结果也偏小
-
-        if (random_loss_x == 0) {
+        if random_loss_x <= 1 {
             random_loss_x = 1;
         }
 
-        if (random_loss_y == 0) {
+        if random_loss_y <= 1 {
             random_loss_y = 1;
         }
-
-        // 更新双方人员数据
-        x.print();
-        y.print();
 
         random_loss_x.print();
 
