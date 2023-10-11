@@ -9,7 +9,9 @@ mod spawn {
     use stark_land::components::player::Player;
     use stark_land::components::eth::ETH;
 
-    fn execute(ctx: Context, nick_name: felt252) {
+    use starknet::ContractAddress;
+
+    fn execute(ctx: Context, nick_name: felt252) -> ContractAddress {
         let time_now: u64 = starknet::get_block_timestamp();
 
         let player = get!(ctx.world, ctx.origin, (Player));
@@ -26,6 +28,6 @@ mod spawn {
             )
         );
         set!(ctx.world, (ETH { id: ctx.origin, balance: 500_000_000_000_000_000 }));
-        return ();
+        return ctx.origin;
     }
 }
