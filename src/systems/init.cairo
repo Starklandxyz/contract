@@ -59,10 +59,10 @@ mod init {
             ctx.world,
             (MiningConfig {
                 map_id: 1,
-                Food_Speed: multiplier / 10, //0.1 per sec
-                Gold_Speed: multiplier / 10, //
-                Iron_Speed: multiplier / 10, //
-                Base_Gold_Speed: multiplier / 10,
+                Food_Speed: multiplier / 1, // 1.0 per sec
+                Gold_Speed: multiplier / 1, //
+                Iron_Speed: multiplier / 1, //
+                Base_Gold_Speed: multiplier / 1,
             })
         );
         set!(
