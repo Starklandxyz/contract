@@ -124,11 +124,15 @@ mod go_fight {
 
         // 一轮结束，谁剩下人数多就赢
 
+        //攻击方胜利
         if (x > y) {
             land.owner = troop.owner;
             let mut warrior = get!(ctx.world, (map_id, troop.to_x, troop.to_y), Warrior);
 
             warrior.balance = x;
+
+            //删除兵团
+            troop.start_time = 0;
 
             let mut user_warrior = get!(ctx.world, (map_id, ctx.origin), UserWarrior);
             user_warrior.balance = user_warrior.balance - random_loss_x;
@@ -147,7 +151,8 @@ mod go_fight {
 
                 set!(ctx.world, (y_warrior, y_user_warrior));
             }
-        } else {
+        }//攻击失败
+        else {
             // 人数加回基地
             // 返回人数
             let mut user_warrior = get!(ctx.world, (map_id, ctx.origin), UserWarrior);
@@ -156,6 +161,10 @@ mod go_fight {
             balance.print();
             // 更新人数、扣减伤亡人数
             user_warrior.balance = balance - random_loss_x;
+
+            if (troop.balance == 0) {
+                troop.start_time = 0;
+            }
 
             set!(ctx.world, (user_warrior, troop));
 
