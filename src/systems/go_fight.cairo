@@ -57,7 +57,7 @@ mod go_fight {
         let mut y_warrior = get!(ctx.world, (map_id, troop.to_x, troop.to_y), Warrior);
 
         if (!owner.is_zero()) {
-            assert(land.owner == ctx.origin, 'your land can not fight');
+            assert(land.owner != ctx.origin, 'your land can not fight');
             // 获取士兵
             y = y_warrior.balance;
             isLand_None = 1;
