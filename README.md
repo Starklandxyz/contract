@@ -21,7 +21,7 @@ go contracts folder
 1. terminal_1
 `katana --disable-fee`
 2. terminal_2, comment world_address
-`sozo build && sozo migrate name --test`
+`sozo build && sozo migrate --name test`
 3. terminal_3 uncomment world_address
 `touch indexer.db`
 `torii -d indexer.db`
