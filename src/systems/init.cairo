@@ -33,7 +33,7 @@ mod init {
                     Train_Food: 20 * multiplier,
                     Train_Gold: 10 * multiplier,
                     Train_Iron: 0 * multiplier,
-                    Train_Time: 10,
+                    Train_Time: 5,
                     Troop_Food: 10 * multiplier,
                     Troop_Gold: 0 * multiplier,
                     Troop_Speed: 10
@@ -60,10 +60,10 @@ mod init {
             ctx.world,
             (MiningConfig {
                 map_id: 1,
-                Food_Speed: multiplier / 5, // 0.2 per sec
-                Gold_Speed: multiplier / 5, //
-                Iron_Speed: multiplier / 5, //
-                Base_Gold_Speed: multiplier / 5,
+                Food_Speed: multiplier / 1, // 0.2 per sec
+                Gold_Speed: multiplier / 1, //
+                Iron_Speed: multiplier / 1, //
+                Base_Gold_Speed: multiplier / 1,
             })
         );
         set!(
@@ -71,9 +71,9 @@ mod init {
             (BuildPrice {
                 map_id: 1,
                 build_type: 1,
-                gold: 100 * multiplier,
-                food: 100 * multiplier,
-                iron: 100 * multiplier
+                gold: 1000 * multiplier,
+                food: 5000 * multiplier,
+                iron: 1000 * multiplier
             })
         );
         set!(
@@ -118,16 +118,16 @@ mod init {
         );
 
         emit!(ctx.world, MapInited { map_id: 1, MAX_MAP_X: max_map_x, MAX_MAP_Y: max_map_y });
-
+        let airdropMulti = 2;
         set!(
             ctx.world,
             (AirdropConfig {
                 map_id: 1,
                 index: 1,
-                reward_warrior: 10,
-                reward_food: 2000 * multiplier,
-                reward_gold: 300 * multiplier,
-                reward_iron: 300 * multiplier
+                reward_warrior: 10 * airdropMulti,
+                reward_food: 2000 * multiplier * airdropMulti,
+                reward_gold: 300 * multiplier * airdropMulti,
+                reward_iron: 300 * multiplier * airdropMulti
             })
         );
         set!(
@@ -136,9 +136,9 @@ mod init {
                 map_id: 1,
                 index: 2,
                 reward_warrior: 0,
-                reward_food: 1000 * multiplier,
-                reward_gold: 300 * multiplier,
-                reward_iron: 300 * multiplier
+                reward_food: 1000 * multiplier * airdropMulti,
+                reward_gold: 300 * multiplier * airdropMulti,
+                reward_iron: 300 * multiplier * airdropMulti
             })
         );
         set!(
@@ -146,10 +146,10 @@ mod init {
             (AirdropConfig {
                 map_id: 1,
                 index: 3,
-                reward_warrior: 10,
-                reward_food: 1000 * multiplier,
-                reward_gold: 100 * multiplier,
-                reward_iron: 100 * multiplier
+                reward_warrior: 10 * airdropMulti,
+                reward_food: 1000 * multiplier * airdropMulti,
+                reward_gold: 100 * multiplier * airdropMulti,
+                reward_iron: 100 * multiplier * airdropMulti
             })
         );
         set!(
@@ -157,10 +157,10 @@ mod init {
             (AirdropConfig {
                 map_id: 1,
                 index: 4,
-                reward_warrior: 20,
-                reward_food: 1000 * multiplier,
-                reward_gold: 100 * multiplier,
-                reward_iron: 100 * multiplier
+                reward_warrior: 20 * airdropMulti,
+                reward_food: 1000 * multiplier * airdropMulti,
+                reward_gold: 100 * multiplier * airdropMulti,
+                reward_iron: 100 * multiplier * airdropMulti
             })
         );
         set!(
@@ -169,9 +169,9 @@ mod init {
                 map_id: 1,
                 index: 5,
                 reward_warrior: 0,
-                reward_food: 1000 * multiplier,
-                reward_gold: 200 * multiplier,
-                reward_iron: 0 * multiplier
+                reward_food: 1000 * multiplier * airdropMulti,
+                reward_gold: 200 * multiplier * airdropMulti,
+                reward_iron: 0 * multiplier * airdropMulti
             })
         );
         set!(
@@ -180,9 +180,9 @@ mod init {
                 map_id: 1,
                 index: 6,
                 reward_warrior: 0,
-                reward_food: 1000 * multiplier,
-                reward_gold: 200 * multiplier,
-                reward_iron: 00 * multiplier
+                reward_food: 1000 * multiplier * airdropMulti,
+                reward_gold: 200 * multiplier * airdropMulti,
+                reward_iron: 00 * multiplier * airdropMulti
             })
         );
         set!(
@@ -191,9 +191,9 @@ mod init {
                 map_id: 1,
                 index: 7,
                 reward_warrior: 0,
-                reward_food: 1000 * multiplier,
-                reward_gold: 00 * multiplier,
-                reward_iron: 200 * multiplier
+                reward_food: 1000 * multiplier * airdropMulti,
+                reward_gold: 00 * multiplier * airdropMulti,
+                reward_iron: 200 * multiplier * airdropMulti
             })
         );
         set!(
@@ -202,9 +202,9 @@ mod init {
                 map_id: 1,
                 index: 8,
                 reward_warrior: 20,
-                reward_food: 1000 * multiplier,
-                reward_gold: 100 * multiplier,
-                reward_iron: 100 * multiplier
+                reward_food: 1000 * multiplier * airdropMulti,
+                reward_gold: 100 * multiplier * airdropMulti,
+                reward_iron: 100 * multiplier * airdropMulti
             })
         );
         return ();
