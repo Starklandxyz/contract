@@ -125,9 +125,9 @@ mod init {
                 map_id: 1,
                 index: 1,
                 reward_warrior: 10,
-                reward_food: 4000 * multiplier,
-                reward_gold: 500 * multiplier,
-                reward_iron: 500 * multiplier
+                reward_food: 2000 * multiplier,
+                reward_gold: 300 * multiplier,
+                reward_iron: 300 * multiplier
             })
         );
         set!(
@@ -136,9 +136,9 @@ mod init {
                 map_id: 1,
                 index: 2,
                 reward_warrior: 0,
-                reward_food: 2000 * multiplier,
-                reward_gold: 500 * multiplier,
-                reward_iron: 500 * multiplier
+                reward_food: 1000 * multiplier,
+                reward_gold: 300 * multiplier,
+                reward_iron: 300 * multiplier
             })
         );
         set!(
@@ -147,9 +147,9 @@ mod init {
                 map_id: 1,
                 index: 3,
                 reward_warrior: 10,
-                reward_food: 2000 * multiplier,
-                reward_gold: 200 * multiplier,
-                reward_iron: 200 * multiplier
+                reward_food: 1000 * multiplier,
+                reward_gold: 100 * multiplier,
+                reward_iron: 100 * multiplier
             })
         );
         set!(
@@ -158,9 +158,9 @@ mod init {
                 map_id: 1,
                 index: 4,
                 reward_warrior: 20,
-                reward_food: 2000 * multiplier,
-                reward_gold: 200 * multiplier,
-                reward_iron: 200 * multiplier
+                reward_food: 1000 * multiplier,
+                reward_gold: 100 * multiplier,
+                reward_iron: 100 * multiplier
             })
         );
         set!(
@@ -169,8 +169,8 @@ mod init {
                 map_id: 1,
                 index: 5,
                 reward_warrior: 0,
-                reward_food: 2000 * multiplier,
-                reward_gold: 400 * multiplier,
+                reward_food: 1000 * multiplier,
+                reward_gold: 200 * multiplier,
                 reward_iron: 0 * multiplier
             })
         );
@@ -180,8 +180,8 @@ mod init {
                 map_id: 1,
                 index: 6,
                 reward_warrior: 0,
-                reward_food: 2000 * multiplier,
-                reward_gold: 400 * multiplier,
+                reward_food: 1000 * multiplier,
+                reward_gold: 200 * multiplier,
                 reward_iron: 00 * multiplier
             })
         );
@@ -191,9 +191,9 @@ mod init {
                 map_id: 1,
                 index: 7,
                 reward_warrior: 0,
-                reward_food: 2000 * multiplier,
+                reward_food: 1000 * multiplier,
                 reward_gold: 00 * multiplier,
-                reward_iron: 400 * multiplier
+                reward_iron: 200 * multiplier
             })
         );
         set!(
