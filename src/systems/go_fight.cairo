@@ -45,7 +45,7 @@ mod go_fight {
 
         let mut land = get!(ctx.world, (map_id, troop.to_x, troop.to_y), Land);
 
-        let mut x: u64 = troop.balance;
+        let mut x: u64 = troop.balance * 100;
         let mut y: u64 = 0;
 
         let y_address: ContractAddress = land.owner;
@@ -59,12 +59,12 @@ mod go_fight {
         if (!owner.is_zero()) {
             assert(land.owner != ctx.origin, 'your land can not fight');
             // 获取士兵
-            y = y_warrior.balance;
+            y = y_warrior.balance * 100;
             isLand_None = 1;
         } else {
             // 如果是无主之地，获取野蛮人数量
             let barbarians: u64 = LandTrait::land_barbarians(map_id, troop.to_x, troop.to_y);
-            y = barbarians;
+            y = barbarians * 100;
             isLand_None = 0;
         }
 
@@ -73,22 +73,26 @@ mod go_fight {
         // 胜率是 y = 1.3*y / 1.3*y + x , x 损失人数是 [0,（1 -（ y / 1.3*y + x）* y]  的随机值 * y
         // 胜率高 伤亡人数少
 
+        let y_power :u64 = y * 130 / 100;
 
-        let xr1: u128 = random(x * 99 + y + map_id * 17) % 40_u128 + 40_u128;
+        let xr1: u128 = random(x * 99 + y + map_id * 17) % 10_u128 + 1_u128;
         let xr2: u64 = xr1.try_into().unwrap();
 
-        let mut random_loss_x: u64 = (x * xr2 / 100) *130 / 100;
+        let mut random_loss_x: u64 = x * ( y_power + xr2 )* 100 / ( x + y_power + xr2) / 100;
 
-        let yr1: u128 = random(x * 99 + y + map_id * 17) % 40_u128 + 40_u128;
-        let yr2: u64 = xr1.try_into().unwrap();
-
-        let mut random_loss_y: u64 = y * yr2 / 100;
+        let mut random_loss_y: u64 = y * ( x + xr2) * 100 / ( x + y_power + xr2) / 100;
 
         x.print();
         y.print();
 
         random_loss_x.print();
         random_loss_y.print();
+
+        x = x / 100;
+        y = y / 100;
+
+        random_loss_x = random_loss_x / 100;
+        random_loss_y = random_loss_y / 100;
 
         if(random_loss_x <= 0){
             random_loss_x = 1;
