@@ -13,3 +13,4 @@ mod upgrade_compleate;
 mod start_mining;
 mod go_fight;
 mod claim_mining;
+mod admin;

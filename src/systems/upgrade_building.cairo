@@ -61,7 +61,7 @@ mod upgrade_building {
         let  current_level = land.level;
 
         // 升级所需的时间为 单位时间 * 下一等级
-        let unit_time = 3600;
+        let unit_time = 36;
         let mut index = 0;
         let mut total_pow = 1;
         loop{
@@ -71,7 +71,7 @@ mod upgrade_building {
                 break;
             };
         };
-        upgrade_cost.end_time = time_now + unit_time * total_pow;
+        upgrade_cost.end_time = time_now + unit_time * total_pow/2;
 
         // 升级所需的资源为 = 建设单价 * 下一等级
         let food_need = build_price.food * total_pow;

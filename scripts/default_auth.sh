@@ -73,6 +73,12 @@ sozo auth writer Gold upgrade_building --world $WORLD_ADDRESS
 sozo auth writer Food upgrade_building --world $WORLD_ADDRESS
 sozo auth writer Iron upgrade_building --world $WORLD_ADDRESS
 
+sozo auth writer Warrior admin --world $WORLD_ADDRESS
+sozo auth writer UserWarrior admin --world $WORLD_ADDRESS
+sozo auth writer Gold admin --world $WORLD_ADDRESS
+sozo auth writer Food admin --world $WORLD_ADDRESS
+sozo auth writer Iron admin --world $WORLD_ADDRESS
+
 sozo auth writer Land upgrade_compleate --world $WORLD_ADDRESS
 sozo auth writer UpgradeCost upgrade_compleate --world $WORLD_ADDRESS
 
