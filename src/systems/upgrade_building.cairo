@@ -59,24 +59,34 @@ mod upgrade_building {
 
         // 当前地块的等级
         let  current_level = land.level;
-        // 升级所需的资源为 = 建设单价 * 下一等级
-        let food_need = build_price.food * (current_level + 1);
-        // 升级所需的时间为 单位时间 * 下一等级
-        let unit_time = 100;
-        upgrade_cost.end_time = time_now + unit_time * (current_level + 1);
 
+        // 升级所需的时间为 单位时间 * 下一等级
+        let unit_time = 3600;
+        let mut index = 0;
+        let mut total_pow = 1;
+        loop{
+            total_pow = total_pow * 2;
+            index+=1;
+            if(index==current_level){
+                break;
+            };
+        };
+        upgrade_cost.end_time = time_now + unit_time * total_pow;
+
+        // 升级所需的资源为 = 建设单价 * 下一等级
+        let food_need = build_price.food * total_pow;
         let mut food = get!(ctx.world, (map_id, ctx.origin), Food);
         assert(food.balance >= food_need, 'food not enough');
         food.balance = food.balance - food_need;
         land_cost.cost_food = land_cost.cost_food + food_need;
 
-        let iron_need = build_price.iron * (current_level + 1);
+        let iron_need = build_price.iron * total_pow;
         let mut iron = get!(ctx.world, (map_id, ctx.origin), Iron);
         assert(iron.balance >= iron_need, 'iron not enough');
         iron.balance = iron.balance - iron_need;
         land_cost.cost_iron = land_cost.cost_iron + iron_need;
 
-        let gold_need = build_price.gold * (current_level + 1);
+        let gold_need = build_price.gold * total_pow;
         let mut gold = get!(ctx.world, (map_id, ctx.origin), Gold);
         assert(gold.balance >= gold_need, 'gold not enough');
         gold.balance = gold.balance - gold_need;
