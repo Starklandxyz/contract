@@ -65,26 +65,16 @@ mod test {
     fn create_start() -> (IWorldDispatcher, u64, ContractAddress) {
         let mut world = setup();
         let map_id: u64 = 1;
-
-        // let mut calldata = Default::default();
-        // let test_t: felt252 = 1; 
-        // Serde::serialize(@test_t, ref calldata);
         let mut res = world.execute('init', array![]);
         let mut global_cfg = get!(world, (map_id), GlobalConfig);
-        // global_cfg.MAX_MAP_X.print();
-        // global_cfg.ADMIN.print();
 
-        let player_name: felt252 = 1234.into();
-        let mut spawn_player_calldata = array::ArrayTrait::<felt252>::new();
-        // spawn_player_calldata.append(map_id.into());
-        spawn_player_calldata.append(player_name);
-
-        let mut result = world.execute('spawn', spawn_player_calldata);
+        let player_name: felt252 = 1234;
+        let mut result = world.execute('spawn', array![player_name]);
         let player_address = serde::Serde::<ContractAddress>::deserialize(ref result)
             .expect('id des failed');
 
         player_address.print();
-        let player = get!(world, (player_address), Player);
+        // let player = get!(world, (player_address), Player);
         // player.owner.print();
         // player.nick_name.print();
         // player.joined_time.print();
@@ -100,7 +90,7 @@ mod test {
         let build_y: felt252 = 1;
 
         world.execute('build_base', array![map_id, build_x, build_y]);
-        world.execute('airdrop', array![map_id.into()]);
+        world.execute('airdrop', array![map_id.into(), map_id, build_x, build_y]);
 
         (world, build_x, build_y)
     }
