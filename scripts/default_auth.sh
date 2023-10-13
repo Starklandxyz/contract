@@ -40,6 +40,7 @@ sozo auth writer UserWarrior airdrop --world $WORLD_ADDRESS
 sozo auth writer Warrior airdrop --world $WORLD_ADDRESS
 
 sozo auth writer Food send_troop --world $WORLD_ADDRESS
+sozo auth writer Iron send_troop --world $WORLD_ADDRESS
 sozo auth writer Troop send_troop --world $WORLD_ADDRESS
 sozo auth writer Warrior send_troop --world $WORLD_ADDRESS
 
