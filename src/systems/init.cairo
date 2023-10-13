@@ -35,6 +35,7 @@ mod init {
                     Train_Iron: 0 * multiplier,
                     Train_Time: 5,
                     Troop_Food: 10 * multiplier,
+                    Troop_Iron: 2 * multiplier,
                     Troop_Gold: 0 * multiplier,
                     Troop_Speed: 10
                 },

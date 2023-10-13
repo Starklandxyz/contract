@@ -102,6 +102,11 @@ mod send_troop {
         assert(food.balance >= food_need, 'food not enough');
         food.balance = food.balance - food_need;
 
+        let iron_need = config.Troop_Iron * amount * dis;
+        let mut iron = get!(ctx.world, (map_id, ctx.origin), Iron);
+        assert(iron.balance >= iron_need, 'iron not enough');
+        iron.balance = iron.balance - iron_need;
+
         warrior.balance = warrior.balance - amount;
         troop.start_time = time_now;
         troop.from_x = from_x;
@@ -112,7 +117,7 @@ mod send_troop {
         troop.balance = amount;
         troop.distance = dis;
 
-        set!(ctx.world, (food, warrior, troop));
+        set!(ctx.world, (food,iron, warrior, troop));
         return ();
     }
 }

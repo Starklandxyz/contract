@@ -12,5 +12,6 @@ struct WarriorConfig {
     //派兵的消耗的时间
     Troop_Food:u64,
     Troop_Gold:u64,
+    Troop_Iron:u64,
     Troop_Speed:u64
 }
