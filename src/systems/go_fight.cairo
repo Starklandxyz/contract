@@ -69,7 +69,7 @@ mod go_fight {
 
         if (!owner.is_zero()) {
             assert(land.owner != ctx.origin, 'your land can not fight');
-            // 获取士兵
+            // 获取士兵 可能有士兵 可能没士兵
             y = y_warrior.balance * 100;
             isLand_None = 1;
 
@@ -100,7 +100,7 @@ mod go_fight {
         let mut random_loss_y: u64 = total_y * (x + xr2) * 100 / (x + y_power + xr2) / 100;
 
         x.print();
-        y.print();
+        total_y.print();
 
         random_loss_x.print();
         random_loss_y.print();
@@ -132,7 +132,7 @@ mod go_fight {
         }
 
         if (x / total_y >= 3) {
-            random_loss_y = y;
+            random_loss_y = total_y;
         }
 
         x = x - random_loss_x;
@@ -172,6 +172,11 @@ mod go_fight {
             if (isLand_None >= 1) {
                 youzhu.print();
 
+                if(y <= 0){
+                    return ();
+                }
+
+                // 有主之地 \  初始人数
                 y = y / 100;
 
                 // 敌人回家、更新敌人基地人数、更新敌人兵团人数
@@ -181,6 +186,7 @@ mod go_fight {
 
                 y = y - random_loss_y;
 
+                // 更新当前余额
                 y_warrior.balance = y_warrior.balance + y;
 
                 let mut y_user_warrior = get!(ctx.world, (map_id, y_address), UserWarrior);
@@ -215,11 +221,15 @@ mod go_fight {
             if (isLand_None >= 1) {
                 youzhu.print();
 
-                if( random_loss_y >= y){
-                    random_loss_y = y;
+                if(y <= 0){
+                    return ();
                 }
 
                 y = y / 100;
+
+                if( random_loss_y >= y){
+                    random_loss_y = y;
+                }
 
                 y = y - random_loss_y;
 
