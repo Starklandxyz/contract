@@ -57,6 +57,8 @@ mod go_fight {
         let mut x: u64 = troop.balance * 100;
         let mut y: u64 = 0;
 
+        let mut total_y: u64 = 0;
+
         let y_address: ContractAddress = land.owner;
 
         let mut isLand_None: u64 = 0;
@@ -71,20 +73,16 @@ mod go_fight {
             y = y_warrior.balance * 100;
             isLand_None = 1;
 
-            // 0 人直接结束战斗
-            if( y <= 0){
+            let barbarians: u64 = LandTrait::land_barbarians(map_id, troop.to_x, troop.to_y);
 
-                land.owner = troop.owner;
-
-                set!(ctx.world, (land));
-                return ();
-
-            }
+            total_y = y + barbarians * 100;
+           
         } else {
             // 如果是无主之地，获取野蛮人数量
             let barbarians: u64 = LandTrait::land_barbarians(map_id, troop.to_x, troop.to_y);
-            y = barbarians * 100;
             isLand_None = 0;
+
+            total_y = barbarians * 100;
         }
 
         // x 人数、y 人数，y 实际攻击力是 y * 1.3、
@@ -92,14 +90,14 @@ mod go_fight {
         // 胜率是 y = 1.3*y / 1.3*y + x , x 损失人数是 [0,（1 -（ y / 1.3*y + x）* y]  的随机值 * y
         // 胜率高 伤亡人数少
 
-        let y_power: u64 = y * 130 / 100;
+        let y_power: u64 = total_y * 130 / 100;
 
         let xr1: u128 = random(x * 99 + y + map_id * 17) % 10_u128 + 1_u128;
         let xr2: u64 = xr1.try_into().unwrap();
 
         let mut random_loss_x: u64 = x * (y_power + xr2) * 100 / (x + y_power + xr2) / 100;
 
-        let mut random_loss_y: u64 = y * (x + xr2) * 100 / (x + y_power + xr2) / 100;
+        let mut random_loss_y: u64 = total_y * (x + xr2) * 100 / (x + y_power + xr2) / 100;
 
         x.print();
         y.print();
@@ -108,7 +106,7 @@ mod go_fight {
         random_loss_y.print();
 
         x = x / 100;
-        y = y / 100;
+        total_y = total_y / 100;
 
         random_loss_x = random_loss_x / 100;
         random_loss_y = random_loss_y / 100;
@@ -125,21 +123,21 @@ mod go_fight {
             random_loss_x = x;
         }
 
-        if (random_loss_y >= y) {
-            random_loss_y = y;
+        if (random_loss_y >= total_y) {
+            random_loss_y = total_y;
         }
 
-        if (y / x >= 3) {
+        if (total_y / x >= 3) {
             random_loss_x = x;
         }
 
-        if (x / y >= 3) {
+        if (x / total_y >= 3) {
             random_loss_y = y;
         }
 
         x = x - random_loss_x;
 
-        y = y - random_loss_y;
+        total_y = total_y - random_loss_y;
 
         troop.balance = x;
 
@@ -152,7 +150,7 @@ mod go_fight {
 
         let youzhu = 111;
         //攻击方胜利
-        if (x > y) {
+        if (x > total_y) {
             win.print();
 
             land.owner = troop.owner;
@@ -175,6 +173,12 @@ mod go_fight {
                 youzhu.print();
 
                 // 敌人回家、更新敌人基地人数、更新敌人兵团人数
+                if( random_loss_y >= y){
+                    random_loss_y = y;
+                }
+
+                y = y - random_loss_y;
+
                 y_warrior.balance = y_warrior.balance + y;
 
                 let mut y_user_warrior = get!(ctx.world, (map_id, y_address), UserWarrior);
@@ -208,6 +212,12 @@ mod go_fight {
 
             if (isLand_None >= 1) {
                 youzhu.print();
+
+                if( random_loss_y >= y){
+                    random_loss_y = y;
+                }
+
+                y = y - random_loss_y;
 
                 // 剩下的人数更新
                 y_warrior.balance = y;
