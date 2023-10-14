@@ -70,6 +70,16 @@ mod go_fight {
             // 获取士兵
             y = y_warrior.balance * 100;
             isLand_None = 1;
+
+            // 0 人直接结束战斗
+            if( y <= 0){
+
+                land.owner = troop.owner;
+
+                set!(ctx.world, (land));
+                return ();
+
+            }
         } else {
             // 如果是无主之地，获取野蛮人数量
             let barbarians: u64 = LandTrait::land_barbarians(map_id, troop.to_x, troop.to_y);
