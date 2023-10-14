@@ -9,12 +9,15 @@ mod train_warrior {
     use stark_land::components::warrior_config::WarriorConfig;
     use stark_land::components::training::Training;
     use stark_land::components::training::TrainImpl;
+    use stark_land::components::build_config::BuildConfig;
+    use stark_land::components::user_warrior::UserWarrior;
+    use stark_land::components::land::Land;
     use stark_land::components::base::Base;
     use stark_land::components::food::Food;
     use stark_land::components::iron::Iron;
     use stark_land::components::gold::Gold;
 
-    fn execute(ctx: Context, map_id: u64, amount: u64) {
+    fn execute(ctx: Context, map_id: u64, amount: u64, camps_x: Array<u64>, camps_y: Array<u64>) {
         let time_now: u64 = starknet::get_block_timestamp();
 
         let base = get!(ctx.world, (map_id, ctx.origin), Base);
@@ -22,6 +25,10 @@ mod train_warrior {
 
         let config = get!(ctx.world, map_id, WarriorConfig);
         assert(config.Train_Food != 0, 'config not ready');
+
+        let maxWarrior = calMaxWarrior(ctx, map_id, camps_x, camps_y);
+        let userWarrior = get!(ctx.world, (map_id, ctx.origin), UserWarrior);
+        assert(userWarrior.balance + amount <= maxWarrior, 'exceed max');
 
         let mut training = get!(ctx.world, (map_id, ctx.origin), Training);
         assert(time_now > training.end_time(config.Train_Time), 'train not finish');
@@ -50,5 +57,30 @@ mod train_warrior {
 
         set!(ctx.world, (food, iron, gold, training));
         return ();
+    }
+
+    fn calMaxWarrior(ctx: Context, map_id: u64, camps_x: Array<u64>, camps_y: Array<u64>) -> u64 {
+        let mut total: u64 = 60;
+        if (camps_x.len() == 0) {
+            return total;
+        }
+        assert(camps_x.len() == camps_y.len(), 'not same');
+        let build_config = get!(ctx.world, (map_id), BuildConfig);
+        let mut index = 0;
+
+        loop {
+            let x: u64 = *camps_x.at(index);
+            let y: u64 = *camps_y.at(index);
+            let land = get!(ctx.world, (map_id, x, y), Land);
+            assert(land.owner == ctx.origin, 'not your land');
+            assert(land.building == build_config.Build_Type_Camp, 'not camp');
+
+            total += land.level * 30;
+            index += 1;
+            if (index == camps_x.len()) {
+                break;
+            };
+        };
+        total
     }
 }
