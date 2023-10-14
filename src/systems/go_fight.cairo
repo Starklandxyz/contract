@@ -172,6 +172,8 @@ mod go_fight {
             if (isLand_None >= 1) {
                 youzhu.print();
 
+                y = y / 100;
+
                 // 敌人回家、更新敌人基地人数、更新敌人兵团人数
                 if( random_loss_y >= y){
                     random_loss_y = y;
@@ -216,6 +218,8 @@ mod go_fight {
                 if( random_loss_y >= y){
                     random_loss_y = y;
                 }
+
+                y = y / 100;
 
                 y = y - random_loss_y;
 
