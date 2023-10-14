@@ -84,6 +84,8 @@ sozo auth writer UserWarrior go_fight --world $WORLD_ADDRESS
 sleep 1
 sozo auth writer Land go_fight --world $WORLD_ADDRESS
 sleep 1
+sozo auth writer LandOwner go_fight --world $WORLD_ADDRESS
+sleep 1
 sozo auth writer Warrior go_fight --world $WORLD_ADDRESS
 sleep 1
 sozo auth writer Troop go_fight --world $WORLD_ADDRESS

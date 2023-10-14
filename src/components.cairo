@@ -21,3 +21,4 @@ mod mining_config;
 mod airdrop;
 mod airdrop_config;
 mod upgrade_cost;
+mod land_owner;
