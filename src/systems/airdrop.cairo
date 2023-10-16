@@ -38,20 +38,15 @@ mod airdrop {
             assert(user_warrior.balance >= 20, 'no enough warrior');
         } //拥有1个Troop
         else if (index == 3) {
-            let troop1 = get!(ctx.world, (map_id, ctx.origin, 1), Troop);
-            let troop2 = get!(ctx.world, (map_id, ctx.origin, 2), Troop);
-            let troop3 = get!(ctx.world, (map_id, ctx.origin, 3), Troop);
-            if (troop1.start_time + troop2.start_time + troop3.start_time == 0) {
-                panic_with_felt252('no troop');
-            }
-        }//拥有第一个land
+            let troop = get!(ctx.world, (map_id, ctx.origin, 1), Troop);
+            assert(troop.from_x != 0 && troop.from_y != 0, 'no troop');
+        } //拥有第一个land
         else if (index == 4) {
             let land = get!(ctx.world, (map_id, x, y), Land);
             assert(land.owner == ctx.origin, 'not your land');
             let config = get!(ctx.world, (map_id), BuildConfig);
             assert(land.building != config.Build_Type_Base, 'not land');
-        } 
-        //拥有第一个farmland
+        }//拥有第一个farmland
         else if (index == 5) {
             let land = get!(ctx.world, (map_id, x, y), Land);
             assert(land.owner == ctx.origin, 'not your land');
