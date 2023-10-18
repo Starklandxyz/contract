@@ -77,7 +77,6 @@ mod go_fight {
             isLand_None = 1;
 
             total_y = y + barbarians * 100;
-           
         } else {
             // 如果是无主之地，获取野蛮人数量
             isLand_None = 0;
@@ -92,7 +91,7 @@ mod go_fight {
 
         let y_power: u64 = total_y * 130 / 100;
 
-        let xr1: u128 = random(x * 99 + y + map_id * 17) % 10_u128 + 1_u128;
+        let xr1: u128 = random(x * 99 + y + map_id * 17 + time_now) % 10_u128 + 1_u128;
         let xr2: u64 = xr1.try_into().unwrap();
 
         let mut random_loss_x: u64 = total_x * (y_power + xr2) * 100 / (x + y_power + xr2) / 100;
@@ -143,7 +142,6 @@ mod go_fight {
         let youzhu = 111;
         //攻击方胜利
         if (x > total_y) {
-
             win.print();
 
             land.owner = troop.owner;
@@ -160,13 +158,12 @@ mod go_fight {
 
             let mut user_warrior = get!(ctx.world, (map_id, ctx.origin), UserWarrior);
 
-            user_warrior.balance = user_warrior.balance - ( x - total_x);
+            user_warrior.balance = user_warrior.balance - (x - total_x);
             land_owner.total = land_owner.total + 1;
             // 更新土地 士兵信息
             set!(ctx.world, (warrior, land_owner, land, user_warrior, troop));
 
             if (isLand_None >= 1) {
-
                 youzhu.print();
 
                 // 有主之地 \  初始人数
@@ -174,9 +171,9 @@ mod go_fight {
 
                 // total_y 剩余、 barbarians 野人、random_loss_y 损失
 
-                if( total_y >= barbarians ){
+                if (total_y >= barbarians) {
                     y_warrior.balance = total_y - barbarians;
-                }else{
+                } else {
                     y_warrior.balance = 0;
                 }
 
@@ -185,16 +182,16 @@ mod go_fight {
                 let mut y_user_warrior = get!(ctx.world, (map_id, y_address), UserWarrior);
                 let mut y_user_land = get!(ctx.world, (map_id, y_address), LandOwner);
 
-                let y_base = get!(ctx.world,(map_id,y_address),Base);
+                let y_base = get!(ctx.world, (map_id, y_address), Base);
 
                 let mut y_base_warrior = get!(ctx.world, (map_id, y_base.x, y_base.y), Warrior);
                 // 更新基地人数
                 y_base_warrior.balance = y_base_warrior.balance + y_warrior.balance;
 
-                y_user_warrior.balance = y_user_warrior.balance -( y - y_warrior.balance) ;
+                y_user_warrior.balance = y_user_warrior.balance - (y - y_warrior.balance);
                 y_user_land.total = y_user_land.total - 1;
 
-                set!(ctx.world, (y_user_land, y_user_warrior,y_base_warrior));
+                set!(ctx.world, (y_user_land, y_user_warrior, y_base_warrior));
             }
         } //攻击失败
         else {
@@ -222,10 +219,10 @@ mod go_fight {
                 youzhu.print();
 
                 y = y / 100;
-               
-                if( total_y >= barbarians ){
+
+                if (total_y >= barbarians) {
                     y_warrior.balance = total_y - barbarians;
-                }else{
+                } else {
                     y_warrior.balance = 0;
                 }
 

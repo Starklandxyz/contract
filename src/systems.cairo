@@ -14,3 +14,5 @@ mod start_mining;
 mod go_fight;
 mod claim_mining;
 mod admin;
+mod attack_monster;
+mod open_pack;

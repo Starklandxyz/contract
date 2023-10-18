@@ -38,8 +38,11 @@ impl LandImpl of LandTrait {
             result = (r2%50+51).try_into().unwrap()
         }else if(r1<=95){
             result = (r2%100+101).try_into().unwrap()
-        }else if(r1<=100){
+        }else if(r1<=99){
             result = (r2%200+201).try_into().unwrap()
+        }else{
+            //level6 1%
+            result = (r2%1000000+1000000).try_into().unwrap()
         }
         // r1.try_into().unwrap()
         result

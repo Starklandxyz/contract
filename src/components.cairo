@@ -22,3 +22,5 @@ mod airdrop;
 mod airdrop_config;
 mod upgrade_cost;
 mod land_owner;
+mod lucky_pack;
+mod reward_point;

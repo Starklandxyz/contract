@@ -124,6 +124,17 @@ sozo auth writer UpgradeCost upgrade_compleate --world $WORLD_ADDRESS
 sleep 1
 sozo auth writer Land admin_attack --world $WORLD_ADDRESS
 sleep 1
+
+sozo auth writer UserWarrior attack_monster --world $WORLD_ADDRESS
+sleep 1
+sozo auth writer LuckyPack attack_monster --world $WORLD_ADDRESS
+sleep 1
+sozo auth writer Troop attack_monster --world $WORLD_ADDRESS
+sleep 1
+sozo auth writer LuckyPack open_pack --world $WORLD_ADDRESS
+sleep 1
+sozo auth writer RewardPoint open_pack --world $WORLD_ADDRESS
+sleep 1
 sozo execute init --world $WORLD_ADDRESS
 sleep 1
 echo "Default authorizations have been successfully set."
