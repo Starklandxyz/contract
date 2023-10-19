@@ -35,7 +35,7 @@ mod init {
                     Train_Iron: 0 * multiplier,
                     Train_Time: 5,
                     Troop_Food: 10 * multiplier,
-                    Troop_Iron: 2 * multiplier,
+                    Troop_Iron: 1 * multiplier,
                     Troop_Gold: 0 * multiplier,
                     Troop_Speed: 10
                 },
@@ -46,9 +46,9 @@ mod init {
             (BuildConfig {
                 map_id: 1,
                 Land_Gold: 1, //土地属性是金矿的值,默认是1
-                Land_Iron: 3, //土地属性是铁矿的值,默认是3
-                Land_Water: 5, //土地属性是水的值,默认是5
-                Land_None: 6, //土地属性是可建设用地的值,默认是6
+                Land_Iron: 4, //土地属性是铁矿的值,默认是4,(2,3,4都是铁矿)
+                Land_Water: 7, //土地属性是水的值,默认是7,(5,6,7都是水)
+                Land_None: 8, //土地属性是可建设用地的值,默认是8
                 // 1==基地Base 4*4,2==农田Farmland,3==铁矿矿场IronMine,4==金矿矿场GoldMine,5==营地Camp
                 Build_Type_Base: 1,
                 Build_Type_Farmland: 2,
