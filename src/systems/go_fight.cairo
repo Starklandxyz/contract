@@ -141,7 +141,7 @@ mod go_fight {
 
         let youzhu = 111;
         //攻击方胜利
-        if (x > total_y) {
+        if (total_x > total_y) {
             win.print();
 
             land.owner = troop.owner;
