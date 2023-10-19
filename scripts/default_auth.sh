@@ -40,17 +40,17 @@ sozo auth writer Warrior take_warrior --world $WORLD_ADDRESS
 sleep 1
 sozo auth writer UserWarrior take_warrior --world $WORLD_ADDRESS
 sleep 1
-sozo auth writer Food airdrop --world $WORLD_ADDRESS
+sozo auth writer Food claim_airdrop --world $WORLD_ADDRESS
 sleep 1
-sozo auth writer Gold airdrop --world $WORLD_ADDRESS
+sozo auth writer Gold claim_airdrop --world $WORLD_ADDRESS
 sleep 1
-sozo auth writer Iron airdrop --world $WORLD_ADDRESS
+sozo auth writer Iron claim_airdrop --world $WORLD_ADDRESS
 sleep 1
-sozo auth writer Airdrop airdrop --world $WORLD_ADDRESS
+sozo auth writer Airdrop claim_airdrop --world $WORLD_ADDRESS
 sleep 1
-sozo auth writer UserWarrior airdrop --world $WORLD_ADDRESS
+sozo auth writer UserWarrior claim_airdrop --world $WORLD_ADDRESS
 sleep 1
-sozo auth writer Warrior airdrop --world $WORLD_ADDRESS
+sozo auth writer Warrior claim_airdrop --world $WORLD_ADDRESS
 sleep 1
 sozo auth writer Food send_troop --world $WORLD_ADDRESS
 sleep 1

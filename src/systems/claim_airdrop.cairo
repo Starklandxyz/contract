@@ -1,5 +1,5 @@
 #[system]
-mod airdrop {
+mod claim_airdrop {
     use dojo::world::Context;
 
     use stark_land::components::gold::Gold;
