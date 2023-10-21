@@ -36,14 +36,23 @@ mod send_troop {
         let from_land = get!(ctx.world, (map_id, from_x, from_y), Land);
         assert(from_land.owner == ctx.origin, 'not your land');
 
+        let to_land = get!(ctx.world, (map_id, to_x, to_y), Land);
+
         let build_config = get!(ctx.world, map_id, BuildConfig);
+
+        assert(
+            from_land.building == build_config.Build_Type_Base
+                || from_land.building == build_config.Build_Type_Fort ||
+            to_land.building == build_config.Build_Type_Base
+                || to_land.building == build_config.Build_Type_Fort,
+            'not base or fort'
+        );
+
         let to_land_type = LandTrait::land_property(map_id, to_x, to_y);
         //不能发送到金矿/铁矿/水
         assert(to_land_type >= build_config.Land_None, 'can not send troop');
 
         assert(from_x != to_x || from_y != to_y, 'same land');
-
-        let to_land = get!(ctx.world, (map_id, to_x, to_y), Land);
 
         //如果是从自己的base出发，则不能发送给base
         if (from_land.building == build_config.Build_Type_Base) {
@@ -117,7 +126,7 @@ mod send_troop {
         troop.balance = amount;
         troop.distance = dis;
 
-        set!(ctx.world, (food,iron, warrior, troop));
+        set!(ctx.world, (food, iron, warrior, troop));
         return ();
     }
 }
