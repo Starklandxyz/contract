@@ -6,6 +6,7 @@ mod build_building {
     use option::OptionTrait;
     use dojo::world::Context;
 
+    use stark_land::components::fort_owner::FortOwner;
     use stark_land::components::global_config::GlobalConfig;
     use stark_land::components::build_config::BuildConfig;
     use stark_land::components::build_price::BuildPrice;
@@ -25,12 +26,18 @@ mod build_building {
 
         let build_config = get!(ctx.world, map_id, BuildConfig);
 
+        if (build_type == build_config.Build_Type_Fort) {
+            let base_land = get!(ctx.world, (map_id, base.x, base.y), Land);
+            let mut fort_owner = get!(ctx.world, (map_id, ctx.origin), FortOwner);
+            assert(fort_owner.total < base_land.level / 2, 'exceed max fort.');
+            fort_owner.total = fort_owner.total + 1;
+            set!(ctx.world, (fort_owner));
+        }
+
         let mut land = get!(ctx.world, (map_id, x, y), Land);
         assert(LandTrait::land_property(map_id, x, y) >= build_config.Land_None, 'can not build');
         assert(land.building == 0, 'has building');
         assert(land.owner == ctx.origin, 'not yours');
-        // assert((build_type >= build_config.Build_Type_Farmland) && 
-        // (build_type <= build_config.Build_Type_Camp), 'illegal build_type');
 
         let mut land_cost = get!(ctx.world, (map_id, x, y), LandCost);
 

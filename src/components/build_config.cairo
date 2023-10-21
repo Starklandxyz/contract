@@ -12,4 +12,5 @@ struct BuildConfig {
     Build_Type_IronMine: u64,
     Build_Type_GoldMine: u64,
     Build_Type_Camp: u64,
+    Build_Type_Fort: u64,
 }

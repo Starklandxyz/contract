@@ -55,6 +55,7 @@ mod init {
                 Build_Type_IronMine: 3,
                 Build_Type_GoldMine: 4,
                 Build_Type_Camp: 5,
+                Build_Type_Fort: 6,
             })
         );
         set!(
@@ -115,6 +116,16 @@ mod init {
                 gold: 100 * multiplier,
                 food: 100 * multiplier,
                 iron: 100 * multiplier
+            })
+        );
+        set!(
+            ctx.world,
+            (BuildPrice {
+                map_id: 1,
+                build_type: 6,
+                gold: 1000 * multiplier,
+                food: 10000 * multiplier,
+                iron: 1000 * multiplier
             })
         );
 

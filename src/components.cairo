@@ -24,3 +24,4 @@ mod upgrade_cost;
 mod land_owner;
 mod lucky_pack;
 mod reward_point;
+mod fort_owner;

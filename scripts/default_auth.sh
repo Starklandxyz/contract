@@ -68,6 +68,8 @@ sozo auth writer Warrior enter_land --world $WORLD_ADDRESS
 sleep 1
 sozo auth writer Land build_building --world $WORLD_ADDRESS
 sleep 1
+sozo auth writer FortOwner build_building --world $WORLD_ADDRESS
+sleep 1
 sozo auth writer LandCost build_building --world $WORLD_ADDRESS
 sleep 1
 sozo auth writer Food build_building --world $WORLD_ADDRESS
