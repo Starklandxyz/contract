@@ -14,4 +14,7 @@ struct LandMining {
     #[key]
     y: u64,
     start_time:u64,
+    //挖矿的位置
+    mined_x:u64,
+    mined_y:u64
 }

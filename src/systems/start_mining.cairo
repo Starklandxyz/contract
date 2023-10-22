@@ -64,6 +64,8 @@ mod start_mining {
         land_miner.miner_y = miner_y;
 
         land_mining.start_time = time_now;
+        land_mining.mined_x = mined_x;
+        land_mining.mined_y = mined_y;
 
         set!(ctx.world, (land_miner, land_mining));
         return ();

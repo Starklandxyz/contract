@@ -11,12 +11,14 @@ mod remove_build {
     use stark_land::components::global_config::GlobalConfig;
     use stark_land::components::build_config::BuildConfig;
     use stark_land::components::build_price::BuildPrice;
+    use stark_land::components::land_mining::LandMining;
     use stark_land::components::player::Player;
     use stark_land::components::food::Food;
     use stark_land::components::iron::Iron;
     use stark_land::components::gold::Gold;
     use stark_land::components::base::Base;
     use stark_land::components::land::Land;
+    use stark_land::components::land_miner::LandMiner;
     use stark_land::components::land::LandTrait;
     use stark_land::components::land_cost::LandCost;
 
@@ -24,7 +26,7 @@ mod remove_build {
         // assert(check_can_build_base(ctx, map_id, x, y), 'can not build here');
         let mut land = get!(ctx.world, (map_id, x, y), Land);
         let mut land_cost = get!(ctx.world, (map_id, x, y), LandCost);
-        assert(land.level!=0, 'no building');
+        assert(land.level != 0, 'no building');
         // cost_gold: u64, //建筑总gold成本
         // cost_food: u64, //建筑总food成本
         // cost_iron: u64, //建筑总iron成本
@@ -32,6 +34,18 @@ mod remove_build {
             land_cost.cost_gold != 0 || land_cost.cost_food != 0 || land_cost.cost_iron != 0, ''
         );
 
+        //获取挖矿信息
+        let mut land_mining = get!(ctx.world, (map_id, x, y), LandMining);
+        //获取被挖矿的位置
+        let mut land_miner = get!(
+            ctx.world, (map_id, land_mining.mined_x, land_mining.mined_y), LandMiner
+        );
+
+        land_miner.miner_x = 0;
+        land_miner.miner_y = 0;
+        land_mining.start_time = 0;
+        land_mining.mined_x = 0;
+        land_mining.mined_y = 0;
 
         let build_config = get!(ctx.world, map_id, BuildConfig);
 
@@ -41,14 +55,14 @@ mod remove_build {
             set!(ctx.world, (fort_owner));
         }
 
-        let mut food = get!(ctx.world,(map_id,ctx.origin),Food);
-        food.balance = food.balance + land_cost.cost_food * 6/10;
+        let mut food = get!(ctx.world, (map_id, ctx.origin), Food);
+        food.balance = food.balance + land_cost.cost_food * 6 / 10;
 
-        let mut iron = get!(ctx.world,(map_id,ctx.origin),Iron);
-        iron.balance = iron.balance + land_cost.cost_iron * 6/10;
+        let mut iron = get!(ctx.world, (map_id, ctx.origin), Iron);
+        iron.balance = iron.balance + land_cost.cost_iron * 6 / 10;
 
-        let mut gold = get!(ctx.world,(map_id,ctx.origin),Gold);
-        gold.balance = gold.balance + land_cost.cost_gold * 6/10;
+        let mut gold = get!(ctx.world, (map_id, ctx.origin), Gold);
+        gold.balance = gold.balance + land_cost.cost_gold * 6 / 10;
 
         land_cost.cost_gold = 0;
         land_cost.cost_food = 0;
@@ -57,7 +71,7 @@ mod remove_build {
         land.level = 0;
         land.building = 0;
 
-        set!(ctx.world, (land, land_cost, food, iron, gold));
+        set!(ctx.world, (land, land_miner, land_mining, land_cost, food, iron, gold));
         return ();
     }
 }

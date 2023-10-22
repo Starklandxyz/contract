@@ -152,5 +152,9 @@ sozo auth writer Gold remove_build --world $WORLD_ADDRESS
 sleep 1
 sozo auth writer Iron remove_build --world $WORLD_ADDRESS
 sleep 1
+sozo auth writer LandMining remove_build --world $WORLD_ADDRESS
+sleep 1
+sozo auth writer LandMiner remove_build --world $WORLD_ADDRESS
+sleep 1
 
 echo "Default authorizations have been successfully set."
