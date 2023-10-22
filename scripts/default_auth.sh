@@ -139,4 +139,18 @@ sozo auth writer RewardPoint open_pack --world $WORLD_ADDRESS
 sleep 1
 sozo execute init --world $WORLD_ADDRESS
 sleep 1
+
+sozo auth writer Land remove_build --world $WORLD_ADDRESS
+sleep 1
+sozo auth writer FortOwner remove_build --world $WORLD_ADDRESS
+sleep 1
+sozo auth writer LandCost remove_build --world $WORLD_ADDRESS
+sleep 1
+sozo auth writer Food remove_build --world $WORLD_ADDRESS
+sleep 1
+sozo auth writer Gold remove_build --world $WORLD_ADDRESS
+sleep 1
+sozo auth writer Iron remove_build --world $WORLD_ADDRESS
+sleep 1
+
 echo "Default authorizations have been successfully set."
