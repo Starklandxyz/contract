@@ -6,6 +6,8 @@
   ____) | || (_| | |  |   <   | |___| (_| | | | | (_| |
  |_____/ \__\__,_|_|  |_|\_\  |______\__,_|_| |_|\__,_|
 ```
+## Intro🧙  
+
 Welcome to **StarkLand** ! This is the **First** Full On-chain Multiplayer Online Simulation Game (**FOMOSLG**) built with **Dojo** engine on Starknet !  
 
 In this full on-chain world, hundreds of Starknet users will compete for glory and territories. Here, you can create your own empire, build magnificent cities, cultivate bountiful farmlands, mine endless resources, train powerful warriors, explore challenging dungeons for unknown treasures, and engage in fierce battles with other StarkLand players!  
@@ -24,14 +26,9 @@ Moreover, we have prepared a rich task system for you. By completing tasks, you 
 
 StarkLand awaits your arrival, becoming a legendary ruler, engraving your name on the leaderboard, and writing your epic war history! Join us now and experience this Full On-chain Game that transcends reality and virtuality!  
 
-**v 0.1.0**
-Build contract framework (components systems events utils)  
-Initial map 50x50  
-Set properties of the land  
-Add random mod for utils  
 
 
-## DEV
+## DEV 🛠
 
 go contracts folder
 
