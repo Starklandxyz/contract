@@ -85,10 +85,10 @@ sozo auth writer Gold $(get_contract_address "build_building") --world $WORLD_AD
 sleep 1
 sozo auth writer Iron $(get_contract_address "build_building") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
-# sozo auth writer LandMiner start_mining --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer LandMining start_mining --world $WORLD_ADDRESS
-# sleep 1
+sozo auth writer LandMiner $(get_contract_address "start_mining") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer LandMining $(get_contract_address "start_mining") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
 sozo auth writer UserWarrior $(get_contract_address "go_fight") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
 sozo auth writer Land $(get_contract_address "go_fight") --world $WORLD_ADDRESS --rpc-url $RPC_URL
@@ -99,14 +99,14 @@ sozo auth writer Warrior $(get_contract_address "go_fight") --world $WORLD_ADDRE
 sleep 1
 sozo auth writer Troop $(get_contract_address "go_fight") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
-# sozo auth writer LandMining claim_mining --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Food claim_mining --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Gold claim_mining --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Iron claim_mining --world $WORLD_ADDRESS
-# sleep 1
+sozo auth writer LandMining $(get_contract_address "claim_mining") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Food $(get_contract_address "claim_mining") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Gold $(get_contract_address "claim_mining") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Iron $(get_contract_address "claim_mining") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
 # sozo auth writer LandCost upgrade_building --world $WORLD_ADDRESS
 # sleep 1
 # sozo auth writer UpgradeCost upgrade_building --world $WORLD_ADDRESS
