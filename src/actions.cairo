@@ -8,7 +8,7 @@ mod send_troop;
 mod retreat_troop;
 mod enter_land;
 mod go_fight;
-// mod build_building;
+mod build_building;
 // mod upgrade_building;
 // mod upgrade_compleate;
 // mod start_mining;
