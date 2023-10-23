@@ -11,6 +11,7 @@ trait IActions<TContractState> {
 #[dojo::contract]
 mod build_base {
     use starknet::{ContractAddress, get_caller_address};
+    use super::IActions;
     use array::ArrayTrait;
     use box::BoxTrait;
     use traits::{Into, TryInto};
@@ -22,7 +23,7 @@ mod build_base {
     use stark_land::models::land::Land;
     use stark_land::models::land::LandTrait;
     use stark_land::models::land_mining::LandMining;
-    use super::IActions;
+
 
     // impl: implement functions specified in trait
     #[external(v0)]
