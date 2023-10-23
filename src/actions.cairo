@@ -14,6 +14,6 @@ mod claim_mining;
 mod remove_build;
 mod upgrade_building;
 mod upgrade_compleate;
-// mod admin;
+mod admin;
 // mod attack_monster;
 // mod open_pack;
