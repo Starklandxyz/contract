@@ -1,6 +1,5 @@
-mod components;
-mod systems;
+mod models;
+mod actions;
 mod tests;
-mod constants;
 mod events;
 mod utils;
