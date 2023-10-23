@@ -44,32 +44,32 @@ sozo auth writer Land $(get_contract_address "build_base") --world $WORLD_ADDRES
 sleep 1
 sozo auth writer LandMining $(get_contract_address "build_base") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
-# sozo auth writer Food train_warrior --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Iron train_warrior --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Gold train_warrior --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Training train_warrior --world $WORLD_ADDRESS
-# sleep 1
+sozo auth writer Food $(get_contract_address "train_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Iron $(get_contract_address "train_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Gold $(get_contract_address "train_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Training $(get_contract_address "train_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
 # sozo auth writer Training take_warrior --world $WORLD_ADDRESS
 # sleep 1
 # sozo auth writer Warrior take_warrior --world $WORLD_ADDRESS
 # sleep 1
 # sozo auth writer UserWarrior take_warrior --world $WORLD_ADDRESS
 # sleep 1
-# sozo auth writer Food claim_airdrop --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Gold claim_airdrop --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Iron claim_airdrop --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Airdrop claim_airdrop --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer UserWarrior claim_airdrop --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Warrior claim_airdrop --world $WORLD_ADDRESS
-# sleep 1
+sozo auth writer Food $(get_contract_address "claim_airdrop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Gold $(get_contract_address "claim_airdrop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Iron $(get_contract_address "claim_airdrop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Airdrop $(get_contract_address "claim_airdrop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer UserWarrior $(get_contract_address "claim_airdrop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Warrior $(get_contract_address "claim_airdrop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
 # sozo auth writer Food send_troop --world $WORLD_ADDRESS
 # sleep 1
 # sozo auth writer Iron send_troop --world $WORLD_ADDRESS
