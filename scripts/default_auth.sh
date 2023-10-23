@@ -131,17 +131,16 @@ sozo auth writer Land $(get_contract_address "upgrade_compleate") --world $WORLD
 sleep 1
 sozo auth writer UpgradeCost $(get_contract_address "upgrade_compleate") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
-
-# sozo auth writer UserWarrior attack_monster --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer LuckyPack attack_monster --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Troop attack_monster --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer LuckyPack open_pack --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer RewardPoint open_pack --world $WORLD_ADDRESS
-# sleep 1
+sozo auth writer UserWarrior $(get_contract_address "attack_monster") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer LuckyPack $(get_contract_address "attack_monster") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Troop $(get_contract_address "attack_monster") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer LuckyPack $(get_contract_address "open_pack") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer RewardPoint $(get_contract_address "open_pack") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
 
 sozo auth writer Land $(get_contract_address "remove_build") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
