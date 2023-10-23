@@ -36,14 +36,14 @@ echo "--------------------------------------------------------------------------
 # sleep 1
 sozo auth writer Player $(get_contract_address "spawn") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
-# sozo auth writer ETH spawn --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Base build_base --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Land build_base --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer LandMining build_base --world $WORLD_ADDRESS
-# sleep 1
+sozo auth writer ETH $(get_contract_address "spawn") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer HBase $(get_contract_address "build_base") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Land $(get_contract_address "build_base") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer LandMining $(get_contract_address "build_base") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
 # sozo auth writer Food train_warrior --world $WORLD_ADDRESS
 # sleep 1
 # sozo auth writer Iron train_warrior --world $WORLD_ADDRESS

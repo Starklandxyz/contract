@@ -10,11 +10,11 @@ trait IActions<TContractState> {
 // dojo decorator
 #[dojo::contract]
 mod spawn {
+    use starknet::{ContractAddress, get_caller_address};
     use array::ArrayTrait;
     use box::BoxTrait;
     use traits::{Into, TryInto};
     use option::OptionTrait;
-    use starknet::{ContractAddress, get_caller_address};
     use stark_land::models::player::Player;
     use stark_land::models::eth::ETH;
     use super::IActions;
