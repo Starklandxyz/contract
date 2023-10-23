@@ -89,16 +89,16 @@ sleep 1
 # sleep 1
 # sozo auth writer LandMining start_mining --world $WORLD_ADDRESS
 # sleep 1
-# sozo auth writer UserWarrior go_fight --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Land go_fight --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer LandOwner go_fight --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Warrior go_fight --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Troop go_fight --world $WORLD_ADDRESS
-# sleep 1
+sozo auth writer UserWarrior $(get_contract_address "go_fight") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Land $(get_contract_address "go_fight") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer LandOwner $(get_contract_address "go_fight") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Warrior $(get_contract_address "go_fight") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Troop $(get_contract_address "go_fight") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
 # sozo auth writer LandMining claim_mining --world $WORLD_ADDRESS
 # sleep 1
 # sozo auth writer Food claim_mining --world $WORLD_ADDRESS
