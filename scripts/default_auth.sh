@@ -67,12 +67,12 @@ sozo auth writer Troop $(get_contract_address "send_troop") --world $WORLD_ADDRE
 sleep 1
 sozo auth writer Warrior $(get_contract_address "send_troop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
-# sozo auth writer Troop retreat_troop --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Troop enter_land --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Warrior enter_land --world $WORLD_ADDRESS
-# sleep 1
+sozo auth writer Troop $(get_contract_address "retreat_troop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Troop $(get_contract_address "enter_land") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Warrior $(get_contract_address "enter_land") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
 # sozo auth writer Land build_building --world $WORLD_ADDRESS
 # sleep 1
 # sozo auth writer FortOwner build_building --world $WORLD_ADDRESS
