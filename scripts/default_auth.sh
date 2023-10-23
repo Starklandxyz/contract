@@ -22,18 +22,6 @@ echo " "
 echo actions : $(get_contract_address "spawn")
 echo "---------------------------------------------------------------------------"
 
-# enable system -> component authorizations
-# COMPONENTS=("Base" "Food" "GlobalConfig" "" )
-
-# for component in ${COMPONENTS[@]}; do
-#     sozo auth writer $component spawn --world $WORLD_ADDRESS
-# done
-
-# for component in ${COMPONENTS[@]}; do
-#     sozo auth writer $component move --world $WORLD_ADDRESS
-# done
-# sozo auth writer GlobalConfig init --world $WORLD_ADDRESS
-# sleep 1
 sozo auth writer Player $(get_contract_address "spawn") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
 sozo auth writer ETH $(get_contract_address "spawn") --world $WORLD_ADDRESS --rpc-url $RPC_URL
@@ -52,12 +40,12 @@ sozo auth writer Gold $(get_contract_address "train_warrior") --world $WORLD_ADD
 sleep 1
 sozo auth writer Training $(get_contract_address "train_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
-# sozo auth writer Training take_warrior --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Warrior take_warrior --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer UserWarrior take_warrior --world $WORLD_ADDRESS
-# sleep 1
+sozo auth writer Training $(get_contract_address "take_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Warrior $(get_contract_address "take_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer UserWarrior $(get_contract_address "take_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
 sozo auth writer Food $(get_contract_address "claim_airdrop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
 sozo auth writer Gold $(get_contract_address "claim_airdrop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
