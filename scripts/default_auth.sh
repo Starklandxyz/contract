@@ -107,16 +107,16 @@ sozo auth writer Gold $(get_contract_address "claim_mining") --world $WORLD_ADDR
 sleep 1
 sozo auth writer Iron $(get_contract_address "claim_mining") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
-# sozo auth writer LandCost upgrade_building --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer UpgradeCost upgrade_building --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Gold upgrade_building --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Food upgrade_building --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Iron upgrade_building --world $WORLD_ADDRESS
-# sleep 1
+sozo auth writer LandCost $(get_contract_address "upgrade_building") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer UpgradeCost $(get_contract_address "upgrade_building") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Gold $(get_contract_address "upgrade_building") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Food $(get_contract_address "upgrade_building") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Iron $(get_contract_address "upgrade_building") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
 # sozo auth writer Warrior admin --world $WORLD_ADDRESS
 # sleep 1
 # sozo auth writer UserWarrior admin --world $WORLD_ADDRESS
@@ -127,10 +127,10 @@ sleep 1
 # sleep 1
 # sozo auth writer Iron admin --world $WORLD_ADDRESS
 # sleep 1
-# sozo auth writer Land upgrade_compleate --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer UpgradeCost upgrade_compleate --world $WORLD_ADDRESS
-# sleep 1
+sozo auth writer Land $(get_contract_address "upgrade_compleate") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer UpgradeCost $(get_contract_address "upgrade_compleate") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
 # sozo auth writer Land admin_attack --world $WORLD_ADDRESS
 # sleep 1
 
