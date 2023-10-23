@@ -145,22 +145,22 @@ sleep 1
 # sozo auth writer RewardPoint open_pack --world $WORLD_ADDRESS
 # sleep 1
 
-# sozo auth writer Land remove_build --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer FortOwner remove_build --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer LandCost remove_build --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Food remove_build --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Gold remove_build --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Iron remove_build --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer LandMining remove_build --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer LandMiner remove_build --world $WORLD_ADDRESS
-# sleep 1
+sozo auth writer Land $(get_contract_address "remove_build") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer FortOwner $(get_contract_address "remove_build") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer LandCost $(get_contract_address "remove_build") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Food $(get_contract_address "remove_build") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Gold $(get_contract_address "remove_build") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Iron $(get_contract_address "remove_build") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer LandMining $(get_contract_address "remove_build") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer LandMiner $(get_contract_address "remove_build") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
 
 sozo execute $(get_contract_address "init") execute
 echo "Default authorizations have been successfully set."
