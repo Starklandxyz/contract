@@ -4,7 +4,7 @@ mod build_base;
 mod train_warrior;
 mod take_warrior;
 mod claim_airdrop;
-// mod send_troop;
+mod send_troop;
 // mod retreat_troop;
 // mod enter_land;
 // mod build_building;

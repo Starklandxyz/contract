@@ -58,14 +58,15 @@ sozo auth writer UserWarrior $(get_contract_address "claim_airdrop") --world $WO
 sleep 1
 sozo auth writer Warrior $(get_contract_address "claim_airdrop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
-# sozo auth writer Food send_troop --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Iron send_troop --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Troop send_troop --world $WORLD_ADDRESS
-# sleep 1
-# sozo auth writer Warrior send_troop --world $WORLD_ADDRESS
-# sleep 1
+
+sozo auth writer Food $(get_contract_address "send_troop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Iron $(get_contract_address "send_troop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Troop $(get_contract_address "send_troop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer Warrior $(get_contract_address "send_troop") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
 # sozo auth writer Troop retreat_troop --world $WORLD_ADDRESS
 # sleep 1
 # sozo auth writer Troop enter_land --world $WORLD_ADDRESS
