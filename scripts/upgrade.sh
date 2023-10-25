@@ -4,7 +4,7 @@ pushd $(dirname "$0")/..
 
 
 # export RPC_URL="http://localhost:5050";
-export RPC_URL="https://api.cartridge.gg/x/starklandv001/katana";
+export RPC_URL="${1:-http://localhost:5050}"
 
 export WORLD_ADDRESS=$(cat ./target/dev/manifest.json | jq -r '.world.address')
 
@@ -23,5 +23,10 @@ echo " "
 echo actions : $(get_contract_address "spawn")
 echo "---------------------------------------------------------------------------"
 
-sozo execute $(get_contract_address "init") execute
+sozo auth writer Warrior $(get_contract_address "train_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+sozo auth writer UserWarrior $(get_contract_address "train_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+sleep 1
+
+# sozo execute $(get_contract_address "init") execute
 echo "Default authorizations have been successfully set."

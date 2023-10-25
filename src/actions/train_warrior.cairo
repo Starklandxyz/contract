@@ -7,6 +7,10 @@ trait IActions<TContractState> {
     fn execute(
         self: @TContractState, map_id: u64, amount: u64, camps_x: Array<u64>, camps_y: Array<u64>
     );
+    fn buy(
+        self: @TContractState, map_id: u64, amount: u64, camps_x: Array<u64>, camps_y: Array<u64>
+    );
+    
 }
 
 // dojo decorator
@@ -24,6 +28,7 @@ mod train_warrior {
     use stark_land::models::training::TrainImpl;
     use stark_land::models::build_config::BuildConfig;
     use stark_land::models::user_warrior::UserWarrior;
+    use stark_land::models::warrior::Warrior;
     use stark_land::models::land::Land;
     use stark_land::models::hbase::HBase;
     use stark_land::models::food::Food;
@@ -33,6 +38,58 @@ mod train_warrior {
     // impl: implement functions specified in trait
     #[external(v0)]
     impl ActionsImpl of IActions<ContractState> {
+        // ContractState is defined by system decorator expansion
+        fn buy(
+            self: @ContractState, map_id: u64, amount: u64, camps_x: Array<u64>, camps_y: Array<u64>
+        ) {
+            let time_now: u64 = starknet::get_block_timestamp();
+            // Access the world dispatcher for reading.
+            let world = self.world_dispatcher.read();
+            // Get the address of the current caller, possibly the player's address.
+            let origin = get_caller_address();
+
+            let base = get!(world, (map_id, origin), HBase);
+            assert(base.x != 0 && base.y != 0, 'you not joined!');
+
+            let config = get!(world, map_id, WarriorConfig);
+            assert(config.Train_Food != 0, 'config not ready');
+
+            let maxWarrior = calMaxWarrior(self, map_id, camps_x, camps_y);
+            let mut userWarrior = get!(world, (map_id, origin), UserWarrior);
+            assert(userWarrior.balance + amount <= maxWarrior, 'exceed max');
+
+            let training = get!(world, (map_id, origin), Training);
+            assert(time_now > training.end_time(config.Train_Time), 'train not finish');
+            assert(
+                training.can_take_out_amount(config.Train_Time, time_now) == 0, 'take warrior first'
+            );
+            
+            let multi = 5;
+
+            let food_need = config.Train_Food * amount * multi;
+            let mut food = get!(world, (map_id, origin), Food);
+            assert(food.balance >= food_need, 'food not enough');
+            food.balance = food.balance - food_need;
+
+            let iron_need = config.Train_Iron * amount * multi;
+            let mut iron = get!(world, (map_id, origin), Iron);
+            assert(iron.balance >= iron_need, 'iron not enough');
+            iron.balance = iron.balance - iron_need;
+
+            let gold_need = config.Train_Gold * amount * multi;
+            let mut gold = get!(world, (map_id, origin), Gold);
+            assert(gold.balance >= gold_need, 'gold not enough');
+            gold.balance = gold.balance - gold_need;
+
+            let mut warrior = get!(world, (map_id, base.x, base.y), Warrior);
+            warrior.balance = warrior.balance + amount;
+
+            userWarrior.balance = userWarrior.balance + amount;
+
+            set!(world, (food, iron, gold,warrior,userWarrior));
+            return ();
+        }
+
         // ContractState is defined by system decorator expansion
         fn execute(
             self: @ContractState, map_id: u64, amount: u64, camps_x: Array<u64>, camps_y: Array<u64>
