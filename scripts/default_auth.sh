@@ -2,11 +2,12 @@
 set -euo pipefail
 pushd $(dirname "$0")/..
 
-
-export RPC_URL="http://localhost:5050";
+# export RPC_URL="http://localhost:5050";
 # export RPC_URL="https://api.cartridge.gg/x/starklandv001/katana";
+export RPC_URL="${1:-http://localhost:5050}"
 
 export WORLD_ADDRESS=$(cat ./target/dev/manifest.json | jq -r '.world.address')
+echo $RPC_URL
 
 # export ACTIONS_ADDRESS=$(cat ./target/dev/manifest.json | jq -r '.contracts[] | select(.name == "spawn" ).address')
 
@@ -160,5 +161,5 @@ sleep 1
 sozo auth writer LandMiner $(get_contract_address "remove_build") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
 
-sozo execute $(get_contract_address "init") execute
+sozo execute $(get_contract_address "init") execute --rpc-url $RPC_URL
 echo "Default authorizations have been successfully set."
