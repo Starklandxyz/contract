@@ -28,5 +28,5 @@ sleep 1
 sozo auth writer UserWarrior $(get_contract_address "train_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
 sleep 1
 
-# sozo execute $(get_contract_address "init") execute
+sozo execute $(get_contract_address "init") execute
 echo "Default authorizations have been successfully set."
