@@ -54,9 +54,9 @@ mod claim_airdrop {
             //修建基地
             if (index == 1) {
                 assert(base.x != 0, 'no base');
-            } //拥有20个士兵
+            } //拥有30个士兵
             else if (index == 2) {
-                assert(user_warrior.balance >= 20, 'no enough warrior');
+                assert(user_warrior.balance >= 30, 'no enough warrior');
             } //拥有1个Troop
             else if (index == 3) {
                 let troop = get!(world, (map_id, origin, 1), Troop);

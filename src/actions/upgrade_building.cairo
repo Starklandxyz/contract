@@ -87,11 +87,15 @@ mod upgrade_building {
             let current_level = land.level;
 
             // 升级所需的时间为 单位时间 * 下一等级
-            let unit_time = 36;
+            let unit_time = 600;
             let mut index = 0;
             let mut total_pow = 1;
+            let mut multi = 4;
+            if(land.building==build_config.Build_Type_Base){
+                multi = 2;
+            }
             loop {
-                total_pow = total_pow * 2;
+                total_pow = total_pow * multi;
                 index += 1;
                 if (index == current_level) {
                     break;
