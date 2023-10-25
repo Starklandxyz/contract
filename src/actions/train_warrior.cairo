@@ -101,7 +101,7 @@ mod train_warrior {
             assert(land.owner == origin, 'not your land');
             assert(land.building == build_config.Build_Type_Camp, 'not camp');
 
-            total += land.level * 30;
+            total += (land.level-1) * 10 + 30;
             index += 1;
             if (index == camps_x.len()) {
                 break;

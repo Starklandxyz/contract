@@ -55,7 +55,7 @@ mod init {
                         map_id: 1,
                         Train_Food: 20 * multiplier,
                         Train_Gold: 10 * multiplier,
-                        Train_Iron: 2 * multiplier,
+                        Train_Iron: 1 * multiplier,
                         Train_Time: 60,
                         Troop_Food: 10 * multiplier,
                         Troop_Iron: 1 * multiplier,
