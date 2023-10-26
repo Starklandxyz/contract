@@ -101,7 +101,7 @@ mod upgrade_building {
                     break;
                 };
             };
-            upgrade_cost.end_time = time_now + unit_time * total_pow / 2;
+            upgrade_cost.end_time = time_now + unit_time * total_pow / multi;
 
             // 升级所需的资源为 = 建设单价 * 下一等级
             let food_need = build_price.food * total_pow;
