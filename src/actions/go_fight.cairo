@@ -23,6 +23,7 @@ mod go_fight {
     use stark_land::models::warrior_config::WarriorConfig;
     use stark_land::models::build_config::BuildConfig;
     use stark_land::models::troop::Troop;
+    use stark_land::models::fort_owner::FortOwner;
     use stark_land::models::troop::TroopImpl;
     use stark_land::models::land::Land;
     use stark_land::models::land::LandTrait;
@@ -56,6 +57,9 @@ mod go_fight {
             // 速度 时间 距离  实际距离 = 实际速度 * 时间
             let config = get!(world, map_id, WarriorConfig);
             let total_time = troop.distance * config.Troop_Speed;
+
+            let build_config = get!(world,(map_id),BuildConfig);
+
             //at the end of the troop
 
             // 没到达
@@ -177,6 +181,14 @@ mod go_fight {
                 land_owner.total = land_owner.total + 1;
                 // 更新土地 士兵信息
                 set!(world, (warrior, land_owner, land, user_warrior, troop));
+
+                if (land.building == build_config.Build_Type_Fort) {
+                    let mut fort_attacker = get!(world, (map_id, origin), FortOwner);
+                    let mut fort_defender = get!(world, (map_id, land.owner), FortOwner);
+                    fort_attacker.total = fort_attacker.total + 1;
+                    fort_defender.total = fort_defender.total - 1;
+                    set!(world, (fort_attacker, fort_defender));
+                }
 
                 if (isLand_None >= 1) {
                     youzhu.print();

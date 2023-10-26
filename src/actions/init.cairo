@@ -27,8 +27,8 @@ mod init {
     impl ActionsImpl of IActions<ContractState> {
         // ContractState is defined by system decorator expansion
         fn execute(self: @ContractState) {
-            let max_map_x: u64 = 100;
-            let max_map_y: u64 = 100;
+            let max_map_x: u64 = 120;
+            let max_map_y: u64 = 120;
             let multiplier: u64 = 1_000_000;
             let time_now: u64 = starknet::get_block_timestamp();
             // Access the world dispatcher for reading.
