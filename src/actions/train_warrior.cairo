@@ -141,7 +141,7 @@ mod train_warrior {
     }
 
     fn calMaxWarrior(self: @ContractState, map_id: u64, camps_x: Array<u64>, camps_y: Array<u64>) -> u64 {
-        let mut total: u64 = 60;
+        let mut total: u64 = 120;
         if (camps_x.len() == 0) {
             return total;
         }
@@ -158,7 +158,7 @@ mod train_warrior {
             assert(land.owner == origin, 'not your land');
             assert(land.building == build_config.Build_Type_Camp, 'not camp');
 
-            total += (land.level-1) * 10 + 30;
+            total += (land.level-1) * 20 + 60;
             index += 1;
             if (index == camps_x.len()) {
                 break;
