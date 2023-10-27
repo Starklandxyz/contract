@@ -23,10 +23,10 @@ echo " "
 echo actions : $(get_contract_address "spawn")
 echo "---------------------------------------------------------------------------"
 
-sozo auth writer Warrior $(get_contract_address "train_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
-sleep 1
-sozo auth writer UserWarrior $(get_contract_address "train_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
-sleep 1
+# sozo auth writer Warrior $(get_contract_address "train_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+# sleep 1
+# sozo auth writer UserWarrior $(get_contract_address "train_warrior") --world $WORLD_ADDRESS --rpc-url $RPC_URL
+# sleep 1
 
 sozo execute $(get_contract_address "init") execute --rpc-url $RPC_URL
 echo "Default authorizations have been successfully set."
