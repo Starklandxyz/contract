@@ -53,9 +53,9 @@ mod init {
                 (
                     WarriorConfig {
                         map_id: 1,
-                        Train_Food: 20 * multiplier,
-                        Train_Gold: 10 * multiplier,
-                        Train_Iron: 1 * multiplier,
+                        Train_Food: 50 * multiplier,
+                        Train_Gold: 20 * multiplier,
+                        Train_Iron: 4 * multiplier,
                         Train_Time: 30,
                         Troop_Food: 10 * multiplier,
                         Troop_Iron: 1 * multiplier,
