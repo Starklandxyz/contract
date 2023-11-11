@@ -70,8 +70,12 @@ mod claim_mining {
                         let reward = total_time * mining_config.Gold_Speed;
                         add_gold += reward;
                     } else if (land.building == building_config.Build_Type_Base) {
-                        let reward = total_time * mining_config.Base_Gold_Speed;
-                        add_gold += reward;
+                        let gold_reward = total_time * mining_config.Base_Gold_Speed;
+                        add_gold += gold_reward;
+                        let iron_reward = total_time * mining_config.Base_Iron_Speed;
+                        add_iron += iron_reward;
+                        let food_reward = total_time * mining_config.Base_Food_Speed;
+                        add_food += food_reward;
                     }
                     land_mining.start_time = time_now;
                     set!(world, (land_mining));
