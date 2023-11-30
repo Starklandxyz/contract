@@ -29,8 +29,10 @@ StarkLand awaits your arrival, becoming a legendary ruler, engraving your name o
 
 
 ## DEV 🛠
-
-go contracts folder
+```bash
+git clone git@github.com:Starklandxyz/contract.git
+cd contract
+```
 
 1. terminal_1
 `katana --disable-fee`
